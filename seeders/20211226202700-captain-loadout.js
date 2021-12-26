@@ -18,7 +18,7 @@ module.exports = {
      * }], {});
     */
 
-    return queryInterface.bulkInsert('Loadout', [{
+    return queryInterface.bulkInsert('Loadouts', [{
       type: 'HQ',
       rangedWeapon: 'Boltstorm Gauntlet',
       meleeWeapon: 'MasterCrafted Power Sword & Power Gauntlet',
@@ -34,5 +34,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+
+    return queryInterface.bulkDelete('Loadouts', null, {});
   }
 };

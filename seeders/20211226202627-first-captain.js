@@ -28,7 +28,7 @@ module.exports = {
      * }], {});
     */
 
-    return queryInterface.bulkInsert('Soldier', [{
+    return queryInterface.bulkInsert('Soldiers', [{
         name: 'Brother-Captain Riangelus Terra',
         tag: 'C-RT10-6',
         role: 'HQ',
@@ -47,6 +47,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-    return queryInterface.bulkDelete('Soldier', null, {});
+    return queryInterface.bulkDelete('Soldiers', null, {});
   }
 };

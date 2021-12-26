@@ -12,7 +12,7 @@ module.exports = {
      * }], {});
     */
 
-    return queryInterface.bulkInsert('Squad', [{
+    return queryInterface.bulkInsert('Squads', [{
       name:"Captain Riangelus",
       type:'HQ',
       status: 'Active'
@@ -27,6 +27,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-    return queryInterface.bulkDelete('Squad', null, {});
+    return queryInterface.bulkDelete('Squads', null, {});
   }
 };
