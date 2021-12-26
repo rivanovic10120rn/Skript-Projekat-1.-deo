@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 
-     toJSON(){
+    toJSON(){
       return {...this.get(), threadID: undefined}
     }
 
