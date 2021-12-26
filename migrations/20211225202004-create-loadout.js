@@ -10,23 +10,39 @@ module.exports = {
       },
       type: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        validate:{
+          notEmpty: true,
+          isIn: {
+            args: [['HQ', 'Sergeant', 'Special Gunner', 'Heavy Gunner', 'Trooper']],
+            msg: "Must be one of the available types (case sensitive): HQ ;  Sergeant ; Special Gunner ; Heavy Gunner ; Trooper "
+          }
+        }
       },
       rangedWeapon: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        validate:{
+          notEmpty: true,
+        }
       },
       meleeWeapon: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        validate:{
+          notEmpty: true,
+        }
       },
       armourType: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        validate:{
+          notEmpty: true
+        }
       },
-      grenades: {
+      hasGrenades: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

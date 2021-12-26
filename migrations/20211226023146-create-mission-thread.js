@@ -9,10 +9,17 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       message: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate:{
+          notEmpty: true,
+          len:[1,300]
+        }
       },
       timestamp: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        validate:{
+          isDate: true
+        }
       },
       MissionID: {
         type: Sequelize.INTEGER,
@@ -23,7 +30,7 @@ module.exports = {
         allowNull: false
       },
       recieved: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,

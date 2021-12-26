@@ -10,20 +10,34 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        validate:{
+          notEmpty: true
+        }
       },
       tag: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        validate:{
+          notEmpty: true,
+          len: [4,5]
+        }
       },
       role: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          isIn: {
+            args: [['HQ', 'Sergeant', 'Special Gunner', 'Heavy Gunner', 'Trooper']],
+            msg: "Must be one of the available types (case sensitive): HQ ;  Sergeant ; Special Gunner ; Heavy Gunner ; Trooper "
+          }
+        }
       },
       SquadID: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       LoadoutID: {
         type: Sequelize.INTEGER,
@@ -31,11 +45,22 @@ module.exports = {
       },
       status: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        validate:{
+          notEmpty: true,
+          isIn: {
+            args: [['Active', 'onMission', 'Missing', 'Deceased']],
+            msg: "Must be one of the available types (case sensitive): Active ; onMission ; Missing ; Deceased "
+          }
+        }
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        validate:{
+          notEmpty: true,
+          len: [8,20]
+        }
       },
       createdAt: {
         allowNull: false,

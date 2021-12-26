@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     rangedWeapon: DataTypes.STRING,
     meleeWeapon: DataTypes.STRING,
     armourType: DataTypes.STRING,
-    grenades: DataTypes.BOOLEAN
+    hasGrenades: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Loadout',

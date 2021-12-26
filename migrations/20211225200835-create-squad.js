@@ -18,11 +18,25 @@ module.exports = {
       },
       type: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        validate:{
+          notEmpty: true,
+          isIn: {
+            args: [['HQ', 'Battleline', 'Dreadnought']],
+            msg: "Must be one of the available types (case sensitive): Battleline ; HQ ; Dreadnought "
+          }
+        }
       },
       status: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        validate:{
+          notEmpty: true,
+          isIn: {
+            args: [['Available', 'onMission']],
+            msg: "Must be one of the available types (case sensitive): Available ; onMission "
+          }
+        }
       },
       createdAt: {
         allowNull: false,
