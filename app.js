@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 
+const { sequelize } = require('./models');
+
 const path = require("path");
 const BP = require("body-parser");
 
@@ -11,6 +13,9 @@ app.use(BP.urlencoded({extended:false}));
 app.use("/api", BP.json());
 
 app.use(express.static(path.join(__dirname, 'static')));
+
+usr = await Soldier.findOne({where:{id: 1}});
+console.log(JSON.stringify(usr));
 
 app.get("/", (req, res) => {
     console.log(req);
