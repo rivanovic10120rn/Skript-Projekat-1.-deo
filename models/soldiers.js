@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       return {...this.get(), password: undefined}
     }
 
-    static associate(Squads, Loadouts, MissionThreads) {
+    static associate({Squads, Loadouts, MissionThreads}) {
       // define association here
       this.belongsTo(Loadouts, {foreignKey: 'LoadoutID', as: 'equippedWith'});
       this.belongsTo(Squads, {foreignKey: 'SquadID', as: 'squad'});

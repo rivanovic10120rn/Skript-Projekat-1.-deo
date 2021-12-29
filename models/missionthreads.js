@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       return {...this.get(), threadID: undefined}
     }
 
-    static associate(Missions, Soldiers) {
+    static associate({Missions, Soldiers}) {
       // define association here
       this.belongsTo(Missions, {foreignKey: 'MissionID', as:'missionThread'}),
       this.belongsTo(Soldiers, {foreignKey: 'SoldierID', as: 'sender'})
