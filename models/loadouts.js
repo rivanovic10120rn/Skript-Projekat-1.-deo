@@ -3,19 +3,19 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Loadout extends Model {
+  class Loadouts extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
 
-    static associate(models) {
+    static associate(Soldiers) {
       // define association here
-      this.hasMany(Soldier, {foreignKey: 'LoadoutID', as: 'armedSoldiers' } )
+      this.hasMany(Soldiers, {foreignKey: 'LoadoutID', as: 'armedSoldiers' } );
     }
   };
-  Loadout.init({
+  Loadouts.init({
     type: DataTypes.STRING,
     rangedWeapon: DataTypes.STRING,
     meleeWeapon: DataTypes.STRING,
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     hasGrenades: DataTypes.BOOLEAN
   }, {
     sequelize,
-    modelName: 'Loadout',
+    modelName: 'Loadouts',
   });
-  return Loadout;
+  return Loadouts;
 };

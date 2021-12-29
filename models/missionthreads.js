@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class MissionThread extends Model {
+  class MissionThreads extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -14,19 +14,19 @@ module.exports = (sequelize, DataTypes) => {
       return {...this.get(), threadID: undefined}
     }
 
-    static associate(models) {
+    static associate(Missions, Soldiers) {
       // define association here
-      this.belongsTo(Mission, {foreignKey: 'MissionID', as:'missionThread'}),
-      this.belongsTo(Soldier, {foreignKey: 'SoldierID', as: 'sender'})
+      this.belongsTo(Missions, {foreignKey: 'MissionID', as:'missionThread'}),
+      this.belongsTo(Soldiers, {foreignKey: 'SoldierID', as: 'sender'})
     }
   };
-  MissionThread.init({
+  MissionThreads.init({
     message: DataTypes.STRING,
     timestamp: DataTypes.DATE,
     recieved: DataTypes.BOOLEAN,
   }, {
     sequelize,
-    modelName: 'MissionThread',
+    modelName: 'MissionThreads',
   });
-  return MissionThread;
+  return MissionThreads;
 };

@@ -3,26 +3,26 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Mission extends Model {
+  class Missions extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
 
-    static associate(models) {
+    static associate(Squads, MissionThreads) {
       // define association here
-      this.hasMany(MissionThread, {foreignKey: 'MissionID', as:'messages', onDelete:'cascade'})
-      this.belongsTo(Squad, {foreignKey:'SquadID' , as:'assignedSquad'})
+      this.hasMany(MissionThreads, {foreignKey: 'MissionID', as:'messages', onDelete:'cascade'})
+      this.belongsTo(Squads, {foreignKey:'SquadID' , as:'assignedSquad'})
     }
   };
-  Mission.init({
+  Missions.init({
     description: DataTypes.STRING,
     location: DataTypes.STRING,
     missionStatus: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Mission',
+    modelName: 'Missions',
   });
-  return Mission;
+  return Missions;
 };

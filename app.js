@@ -1,21 +1,34 @@
 const express = require("express");
 const app = express();
 
-const { sequelize } = require('./models');
+const { sequelize, Soldier, Squad, Loadout, Mission, MissionThread } = require('./models');
 
 const path = require("path");
 const BP = require("body-parser");
 
 const Joi = require('joi');
+const { mainModule } = require("process");
 
+async function main(){
+    await sequelize.authenticate();
+    let usr;
+    let msg;
+
+    usr = await Soldier.create({ name: 'Brother-Captain Thybalt', tag:'86-100-6', role:'HQ', SquadID:'1', LoadoutID:'1', status: 'Missing', password:'1800ontheblock' });
+    console.log(JSON.stringify(usr));
+
+    usr = await Soldier.findOne({where:{soldierID: 1}});
+    console.log(JSON.stringify(usr));
+
+    await sequelize.close();
+
+}
+main();
 app.use(BP.urlencoded({extended:false}));
 
 app.use("/api", BP.json());
 
 app.use(express.static(path.join(__dirname, 'static')));
-
-usr = await Soldier.findOne({where:{id: 1}});
-console.log(JSON.stringify(usr));
 
 app.get("/", (req, res) => {
     console.log(req);

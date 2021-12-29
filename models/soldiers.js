@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Soldier extends Model {
+  class Soldiers extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -14,14 +14,15 @@ module.exports = (sequelize, DataTypes) => {
       return {...this.get(), password: undefined}
     }
 
-    static associate(models) {
+    static associate(Squads, Loadouts, MissionThreads) {
       // define association here
-      this.hasMany(MissionThread, {foreignKey: 'SoldierID', as:'sentMessages', onDelete: 'cascade'}),
-      this.belongsTo(Loadout, {foreignKey: 'LoadoutID', as: 'equippedWith'}),
-      this.belongsTo(Squad, {foreignKey: 'SquadID', as: 'squad'})
+      this.belongsTo(Loadouts, {foreignKey: 'LoadoutID', as: 'equippedWith'});
+      this.belongsTo(Squads, {foreignKey: 'SquadID', as: 'squad'});
+      this.hasMany(MissionThreads, {foreignKey: 'SoldierID', as:'sentMessages', onDelete: 'cascade'});
+      
     }
   };
-  Soldier.init({
+  Soldiers.init({
     name: DataTypes.STRING,
     tag: DataTypes.STRING,
     role: DataTypes.STRING,
@@ -37,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Soldier',
+    modelName: 'Soldiers',
   });
-  return Soldier;
+  return Soldiers;
 };
