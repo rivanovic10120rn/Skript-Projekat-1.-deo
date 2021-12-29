@@ -2,7 +2,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Loadouts', {
-      loadoutID: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
