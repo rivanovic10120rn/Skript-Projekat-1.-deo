@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const { sequelize, Soldier, Squad, Loadout, Mission, MissionThread } = require('./models');
+const { sequelize, Soldiers, Squads, Loadouts, Missions, MissionThreads } = require('./models');
 
 const path = require("path");
 const BP = require("body-parser");
@@ -23,7 +23,9 @@ async function main(){
     await sequelize.close();
 
 }
+
 main();
+
 app.use(BP.urlencoded({extended:false}));
 
 app.use("/api", BP.json());
