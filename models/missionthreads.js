@@ -10,10 +10,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 
-    toJSON(){
-      return {...this.get(), threadID: undefined}
-    }
-
     static associate({Missions, Soldiers}) {
       // define association here
       this.belongsTo(Missions, {foreignKey: 'MissionID', as:'missionThread'}),

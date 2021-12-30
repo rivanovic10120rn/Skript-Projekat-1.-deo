@@ -10,10 +10,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 
-    toJSON(){
-      return {...this.get(), password: undefined}
-    }
-
     static associate({Squads, Loadouts, MissionThreads}) {
       // define association here
       this.belongsTo(Loadouts, {foreignKey: 'LoadoutID', as: 'equippedWith'});
@@ -38,6 +34,9 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING
   }, {
     sequelize,
+    defaultScope: {
+      attributes: { exclude: ['password']}
+    },
     modelName: 'Soldiers',
   });
   return Soldiers;
