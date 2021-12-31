@@ -1,0 +1,101 @@
+const { sequelize, Soldiers, Squads, Loadouts } = require('../models');
+const express = require('express');
+
+const route = express.Router();
+route.use(express.json());
+route.use(express.urlencoded({ extended: true }));
+
+
+route.get('/', (req, res) => {
+
+    Soldiers.findAll({
+        //mozda bespotreban include ali zbog foreign key i putanje?
+        include: {model: Squads, as: 'squad'},
+        include: {model: Loadouts, as: 'loadout'}
+         })
+        .then( rows => res.json(rows) )
+        .catch( err => res.status(500).json(err) );
+    
+});
+
+route.get('/:id', (req, res) => {
+
+    Soldiers.findOne({ where: { id: req.params.id },
+        include: {model: Squads, as: 'squad'},
+        include: {model: Loadouts, as: 'loadout'}
+         })
+        .then( rows => res.json(rows) )
+        .catch( err => res.status(500).json(err) );
+
+});
+
+route.get('/squad/:id', (req, res) => {
+
+    Soldiers.findAll({ where: { SquadID: req.params.SquadID },
+        include: {model: Squads, as: 'squad'},
+        include: {model: Loadouts, as: 'loadout'}
+         })
+        .then( rows => res.json(rows) )
+        .catch( err => res.status(500).json(err) );
+
+});
+
+route.get('/loadout/:id', (req, res) => {
+
+    Soldiers.findAll({ where: { LoadoutID: req.params.LoadoutID },
+        include: {model: Squads, as: 'squad'},
+        include: {model: Loadouts, as: 'loadout'}
+         })
+        .then( rows => res.json(rows) )
+        .catch( err => res.status(500).json(err) );
+
+});
+
+route.post('/', (req, res) => {
+    
+    Soldiers.create({ 
+        name: req.body.name,
+        tag: req.body.tag,
+        role: req.body.role,
+        SquadID: req.body.SquadID, 
+        LoadoutID: req.body.LoadoutID, 
+        status: req.body.status, 
+        password: req.body.password })
+        .then( rows => res.json(rows) )
+        .catch( err => res.status(500).json(err) );
+
+});
+
+route.put('/:id', (req, res) => {
+    
+    Soldiers.findOne({ where: { id: req.params.id } })
+        .then( usr => {
+            usr.name = req.body.name;
+            usr.tag = req.body.tag;
+            usr.role = req.body.role;
+            usr.SquadID = req.body.SquadID;
+            usr.LoadoutID = req.body.LoadoutID;
+            usr.status = req.body.status;
+            //#TODO posebna metoda za promeni lozinke
+            usr.password = req.body.password; //mozda izdvojiti password?
+
+            usr.save()
+                .then( rows => res.json(rows) )
+                .catch( err => res.status(500).json(err) );
+        })
+        .catch( err => res.status(500).json(err) );
+
+});
+
+route.delete('/:id', (req, res) => {
+
+    Soldiers.findOne({ where: { id: req.params.id } })
+        .then( usr => {
+            usr.destroy()
+                .then( rows => res.json(rows) )
+                .catch( err => res.status(500).json(err) );
+        })
+        .catch( err => res.status(500).json(err) );
+});
+
+module.exports = route;

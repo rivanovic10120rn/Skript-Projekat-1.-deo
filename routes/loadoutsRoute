@@ -1,0 +1,66 @@
+const { sequelize, Loadouts } = require('../models');
+const express = require('express');
+
+const route = express.Router();
+route.use(express.json());
+route.use(express.urlencoded({ extended: true }));
+
+
+route.get('/', (req, res) => {
+
+    Loadouts.findAll()
+        .then( rows => res.json(rows) )
+        .catch( err => res.status(500).json(err) );
+    
+});
+
+route.get('/:id', (req, res) => {
+
+    Loadouts.findOne({ where: { id: req.params.id } })
+        .then( rows => res.json(rows) )
+        .catch( err => res.status(500).json(err) );
+
+});
+
+route.post('/', (req, res) => {
+    
+    Loadouts.create({ type: req.body.type,
+                     rangedWeapon: req.body.rangedWeapon, 
+                     meleeWeapon: req.body.meleeWeapon, 
+                     armourType: req.body.armourType, 
+                     hasGrenades: req.body.hasGrenades })
+        .then( rows => res.json(rows) )
+        .catch( err => res.status(500).json(err) );
+
+});
+
+route.put('/:id', (req, res) => {
+    
+    Loadouts.findOne({ where: { id: req.params.id } })
+        .then( usr => {
+            usr.type = req.body.type;
+            usr.rangedWeapon = req.body.rangedWeapon;
+            usr.meleeWeapon = req.body.meleeWeapon;
+            usr.armourType = req.body.armourType;
+            usr.hasGrenades = req.body.hasGrenades;
+
+            usr.save()
+                .then( rows => res.json(rows) )
+                .catch( err => res.status(500).json(err) );
+        })
+        .catch( err => res.status(500).json(err) );
+
+});
+
+route.delete('/:id', (req, res) => {
+
+    Loadouts.findOne({ where: { id: req.params.id } })
+        .then( usr => {
+            usr.destroy()
+                .then( rows => res.json(rows) )
+                .catch( err => res.status(500).json(err) );
+        })
+        .catch( err => res.status(500).json(err) );
+});
+
+module.exports = route;

@@ -1,4 +1,4 @@
-const { sequelize, Squads, Soldiers, Missions } = require('../models');
+const { sequelize, Squads } = require('../models');
 const express = require('express');
 
 const route = express.Router();
@@ -16,7 +16,7 @@ route.get('/', (req, res) => {
 
 route.get('/:id', (req, res) => {
 
-    Users.findOne({ where: { id: req.params.id } })
+    Squads.findOne({ where: { id: req.params.id } })
         .then( rows => res.json(rows) )
         .catch( err => res.status(500).json(err) );
 
@@ -24,20 +24,19 @@ route.get('/:id', (req, res) => {
 
 route.post('/', (req, res) => {
     
-    Users.create({ name: req.body.name, type: req.body.type, status: req.body.status })
+    Squads.create({ name: req.body.name, type: req.body.type, status: req.body.status })
         .then( rows => res.json(rows) )
         .catch( err => res.status(500).json(err) );
 
 });
 
-//ovde si stao sa pitanjem sta radi post a sta radi put
-
-route.put('/users/:id', (req, res) => {
+route.put('/:id', (req, res) => {
     
-    Users.findOne({ where: { id: req.params.id } })
+    Squads.findOne({ where: { id: req.params.id } })
         .then( usr => {
             usr.name = req.body.name;
-            usr.email = req.body.email;
+            usr.type = req.body.type;
+            usr.status = req.body.status;
 
             usr.save()
                 .then( rows => res.json(rows) )
@@ -47,9 +46,9 @@ route.put('/users/:id', (req, res) => {
 
 });
 
-route.delete('/users/:id', (req, res) => {
+route.delete('/:id', (req, res) => {
 
-    Users.findOne({ where: { id: req.params.id } })
+    Squads.findOne({ where: { id: req.params.id } })
         .then( usr => {
             usr.destroy()
                 .then( rows => res.json(rows) )
@@ -58,6 +57,8 @@ route.delete('/users/:id', (req, res) => {
         .catch( err => res.status(500).json(err) );
 });
 
+
+/*
 route.get('/messages', (req, res) => {
 
     Messages.findAll({ include: ['user'] })
@@ -106,5 +107,6 @@ route.delete('/messages/:id', (req, res) => {
         })
         .catch( err => res.status(500).json(err) );
 });
+*/
 
 module.exports = route;
