@@ -50,13 +50,12 @@ route.get('/mission/:id', (req, res) => {
 route.post('/', (req, res) => {
     
     MissionThreads.create({ 
-        name: req.body.name,
-        tag: req.body.tag,
-        role: req.body.role,
-        SquadID: req.body.SquadID, 
-        LoadoutID: req.body.LoadoutID, 
-        status: req.body.status, 
-        password: req.body.password })
+        message: req.body.message,
+        timestamp: req.body.timestamp, 
+        MissionID: req.body.MissionID, 
+        SoldierID: req.body.SoldierID,
+        recieved: req.body.recieved
+     })
         .then( rows => res.json(rows) )
         .catch( err => res.status(500).json(err) );
 
@@ -66,14 +65,11 @@ route.put('/:id', (req, res) => {
     
     MissionThreads.findOne({ where: { id: req.params.id } })
         .then( usr => {
-            usr.name = req.body.name;
-            usr.tag = req.body.tag;
-            usr.role = req.body.role;
-            usr.SquadID = req.body.SquadID;
-            usr.LoadoutID = req.body.LoadoutID;
-            usr.status = req.body.status;
-            //#TODO posebna metoda za promeni lozinke
-            usr.password = req.body.password; //mozda izdvojiti password?
+            usr.message = req.body.message;
+            usr.timestamp = req.body.timestamp;
+            usr.MissionID = req.body.MissionID;
+            usr.SoldierID = req.body.SoldierID;
+            usr.recieved = req.body.recieved;
 
             usr.save()
                 .then( rows => res.json(rows) )
