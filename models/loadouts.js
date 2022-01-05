@@ -23,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
     hasGrenades: DataTypes.BOOLEAN
   }, {
     sequelize,
+    defaultScope: {
+      attributes: { exclude: ['createdAt', 'updatedAt']}
+    },
     modelName: 'Loadouts',
   });
   return Loadouts;

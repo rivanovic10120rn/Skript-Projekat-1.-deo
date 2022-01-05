@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   MissionThreads.init({
     message: DataTypes.STRING,
-    timestamp: DataTypes.DATE,
+    // timestamp: DataTypes.DATE,
     recieved: DataTypes.BOOLEAN,
   }, {
     sequelize,

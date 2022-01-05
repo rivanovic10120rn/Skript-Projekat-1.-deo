@@ -14,7 +14,7 @@ module.exports = {
         validate:{
           notEmpty: true,
           isIn: {
-            args: [['HQ', 'Sergeant', 'Special Gunner', 'Heavy Gunner', 'Trooper']],
+            args: [['HQ'], ['Sergeant'], ['Special Gunner'], ['Heavy Gunner'], ['Trooper']],
             msg: "Must be one of the available types (case sensitive): HQ ;  Sergeant ; Special Gunner ; Heavy Gunner ; Trooper "
           }
         }

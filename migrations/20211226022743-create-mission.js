@@ -30,7 +30,7 @@ module.exports = {
         validate:{
           notEmpty: true,
           isIn: {
-            args: [['Pending', 'Active', 'Successful', 'Failed']],
+            args: [['Pending'], ['Active'], ['Successful'], ['Failed']],
             msg: "Must be one of the available types (case sensitive): Pending ; Active ; Successful ; Failed "
           }
         }

@@ -10,8 +10,10 @@ route.get('/', (req, res) => {
 
     Soldiers.findAll({
         //mozda bespotreban include ali zbog foreign key i putanje?
-        include: {model: Squads, as: 'squad'},
-        include: {model: Loadouts, as: 'loadout'}
+        // include: {model: Squads, as: 'squad'},
+        // include: {model: Loadouts, as: 'loadout'}
+        include: ['squad', 'equippedWith'],
+        // include: ['equippedWith']
          })
         .then( rows => res.json(rows) )
         .catch( err => res.status(500).json(err) );
@@ -21,8 +23,7 @@ route.get('/', (req, res) => {
 route.get('/:id', (req, res) => {
 
     Soldiers.findOne({ where: { id: req.params.id },
-        include: {model: Squads, as: 'squad'},
-        include: {model: Loadouts, as: 'loadout'}
+        include: ['squad', 'equippedWith'],
          })
         .then( rows => res.json(rows) )
         .catch( err => res.status(500).json(err) );
@@ -32,8 +33,7 @@ route.get('/:id', (req, res) => {
 route.get('/squad/:id', (req, res) => {
 
     Soldiers.findAll({ where: { SquadID: req.params.SquadID },
-        include: {model: Squads, as: 'squad'},
-        include: {model: Loadouts, as: 'loadout'}
+        include: ['squad', 'equippedWith'],
          })
         .then( rows => res.json(rows) )
         .catch( err => res.status(500).json(err) );
@@ -43,8 +43,7 @@ route.get('/squad/:id', (req, res) => {
 route.get('/loadout/:id', (req, res) => {
 
     Soldiers.findAll({ where: { LoadoutID: req.params.LoadoutID },
-        include: {model: Squads, as: 'squad'},
-        include: {model: Loadouts, as: 'loadout'}
+        include: ['squad', 'equippedWith'],
          })
         .then( rows => res.json(rows) )
         .catch( err => res.status(500).json(err) );
@@ -68,7 +67,7 @@ route.post('/', (req, res) => {
 
 route.put('/:id', (req, res) => {
     
-    Soldiers.findOne({ where: { id: req.params.id } })
+    Soldiers.findOne({ where: { id: req.params.id }, include: ['squad', 'equippedWith'], })
         .then( usr => {
             usr.name = req.body.name;
             usr.tag = req.body.tag;

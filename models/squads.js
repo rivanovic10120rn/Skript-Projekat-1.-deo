@@ -21,6 +21,9 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.STRING
   }, {
     sequelize,
+    defaultScope: {
+      attributes: { exclude: ['createdAt', 'updatedAt']}
+    },
     modelName: 'Squads',
   });
   return Squads;

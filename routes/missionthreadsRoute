@@ -10,8 +10,7 @@ route.get('/', (req, res) => {
 
     MissionThreads.findAll({
         //mozda dodati squad i loadout zbog soldiera?
-        include: {model: Squads, as: 'squad'},
-        include: {model: Soldiers, as: 'loadout'}
+        include: ['missionThread', 'sender'],
          })
         .then( rows => res.json(rows) )
         .catch( err => res.status(500).json(err) );
@@ -21,8 +20,7 @@ route.get('/', (req, res) => {
 route.get('/:id', (req, res) => {
 
     MissionThreads.findOne({ where: { id: req.params.id },
-        include: {model: Soldiers, as: 'sender'},
-        include: {model: Missions, as: 'missionOfTopic'}
+        include: ['missionThread', 'sender'],
          })
         .then( rows => res.json(rows) )
         .catch( err => res.status(500).json(err) );
@@ -32,8 +30,7 @@ route.get('/:id', (req, res) => {
 route.get('/soldier/:id', (req, res) => {
 
     MissionThreads.findAll({ where: { SoldierID: req.params.SoldierID },
-        include: {model: Soldiers, as: 'sender'},
-        include: {model: Missions, as: 'missionOfTopic'}
+        include: ['missionThread', 'sender'],
          })
         .then( rows => res.json(rows) )
         .catch( err => res.status(500).json(err) );
@@ -43,8 +40,7 @@ route.get('/soldier/:id', (req, res) => {
 route.get('/mission/:id', (req, res) => {
 
     MissionThreads.findAll({ where: { MissionID: req.params.MissionID },
-        include: {model: Soldiers, as: 'sender'},
-        include: {model: Missions, as: 'missionOfTopic'}
+        include: ['missionThread', 'sender'],
          })
         .then( rows => res.json(rows) )
         .catch( err => res.status(500).json(err) );

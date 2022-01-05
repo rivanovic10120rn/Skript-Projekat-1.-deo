@@ -15,12 +15,12 @@ module.exports = {
           len:[1,300]
         }
       },
-      timestamp: {
-        type: Sequelize.DATE,
-        validate:{
-          isDate: true
-        }
-      },
+      // timestamp: {
+      //   type: Sequelize.DATE,
+      //   validate:{
+      //     isDate: true
+      //   }
+      // },
       MissionID: {
         type: Sequelize.INTEGER,
         allowNull: false

@@ -9,7 +9,7 @@ route.use(express.urlencoded({ extended: true }));
 route.get('/', (req, res) => {
 
     Missions.findAll({
-        include: {model: Squads, as: 'squadOnMission'}
+        include: ['assignedSquad']
          })
         .then( rows => res.json(rows) )
         .catch( err => res.status(500).json(err) );
@@ -19,7 +19,7 @@ route.get('/', (req, res) => {
 route.get('/:id', (req, res) => {
 
     Missions.findOne({ where: { id: req.params.id },
-        include: {model: Squads, as: 'squadOnMission'}
+        include: ['assignedSquad']
           })
         .then( rows => res.json(rows) )
         .catch( err => res.status(500).json(err) );
@@ -29,7 +29,7 @@ route.get('/:id', (req, res) => {
 route.get('/squad/:id', (req, res) => {
 
     Missions.findOne({ where: { SquadID: req.params.SquadID },
-        include: {model: Squads, as: 'squadOnMission'}
+        include: ['assignedSquad']
           })
         .then( rows => res.json(rows) )
         .catch( err => res.status(500).json(err) );

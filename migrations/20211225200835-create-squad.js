@@ -22,7 +22,7 @@ module.exports = {
         validate:{
           notEmpty: true,
           isIn: {
-            args: [['HQ', 'Battleline', 'Dreadnought']],
+            args: [['HQ'], ['Battleline'], ['Dreadnought']],
             msg: "Must be one of the available types (case sensitive): Battleline ; HQ ; Dreadnought "
           }
         }
@@ -33,7 +33,7 @@ module.exports = {
         validate:{
           notEmpty: true,
           isIn: {
-            args: [['Available', 'onMission']],
+            args: [['Available'], ['onMission']],
             msg: "Must be one of the available types (case sensitive): Available ; onMission "
           }
         }
