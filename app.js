@@ -22,7 +22,7 @@ const app = express();
 app.use('/api/squads', squadRt);
 app.use('/api/soldiers', soldierRt);
 app.use('/api/loadouts', loadoutRt);
-app.use('/api/mission', missionRt);
+app.use('/api/missions', missionRt);
 app.use('/api/missionthreads', missionthreadRt);
 
 // async function main(){
