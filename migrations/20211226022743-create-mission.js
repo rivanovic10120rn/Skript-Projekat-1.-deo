@@ -29,10 +29,15 @@ module.exports = {
         type: Sequelize.STRING,
         validate:{
           notEmpty: true,
-          isIn: {
-            args: [['Pending'], ['Active'], ['Successful'], ['Failed']],
-            msg: "Must be one of the available types (case sensitive): Pending ; Active ; Successful ; Failed "
+          missionStatusValidator(value){
+            if (value !== 'Active' && value !== 'Pending' && value !== 'Successful' && value !== 'Failed' ){
+              throw new Error('Value must be one of the available types (case sensitive): Pending ; Active ; Successful ; Failed ')
+            }
           }
+          // isIn: {
+          //   args: [['Pending'], ['Active'], ['Successful'], ['Failed']],
+          //   msg: "Must be one of the available types (case sensitive): Pending ; Active ; Successful ; Failed "
+          // }
         }
       },
       createdAt: {

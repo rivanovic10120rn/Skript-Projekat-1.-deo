@@ -29,9 +29,10 @@ module.exports = {
         allowNull: false,
         validate: {
           notEmpty: true,
-          isIn: {
-            args: [['HQ'], ['Sergeant'], ['Special Gunner'], ['Heavy Gunner'], ['Trooper']],
-            msg: "Must be one of the available types (case sensitive): HQ ;  Sergeant ; Special Gunner ; Heavy Gunner ; Trooper "
+          typeValidator(value){
+            if (value !== 'HQ' && value !== 'Sergeant' && value !== 'Special Gunner' && value !== 'Heavy Gunner' && value !== 'Trooper' ){
+              throw new Error('Value must be one of the available types (case sensitive): HQ ; Sergeant ; Special Gunner ; Heavy Gunner ; Trooper ')
+            }
           }
         }
       },
@@ -48,10 +49,15 @@ module.exports = {
         allowNull: false,
         validate:{
           notEmpty: true,
-          isIn: {
-            args: [['Active'], ['onMission'], ['Missing'], ['Deceased']],
-            msg: "Must be one of the available types (case sensitive): Active ; onMission ; Missing ; Deceased "
+          soldierStatusValidator(value){
+            if (value !== 'Active' && value !== 'onMission' && value !== 'Missing' && value !== 'Deceased' ){
+              throw new Error('Value must be one of the available types (case sensitive): Active ; onMission ; Missing ; Deceased ')
+            }
           }
+          // isIn: {
+          //   args: [['Active'], ['onMission'], ['Missing'], ['Deceased']],
+          //   msg: "Must be one of the available types (case sensitive): Active ; onMission ; Missing ; Deceased "
+          // }
         }
       },
       password: {

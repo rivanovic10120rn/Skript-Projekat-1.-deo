@@ -21,10 +21,15 @@ module.exports = {
         allowNull: false,
         validate:{
           notEmpty: true,
-          isIn: {
-            args: [['HQ'], ['Battleline'], ['Dreadnought']],
-            msg: "Must be one of the available types (case sensitive): Battleline ; HQ ; Dreadnought "
+          unitValidator(value){
+            if (value !== 'HQ' && value !== 'Battleline' && value !== 'Dreadnought' ){
+              throw new Error('Value must be one of the available types (case sensitive): HQ ; Sergeant ; Special Gunner ; Heavy Gunner ; Trooper ')
+            }
           }
+          // isIn: {
+          //   args: [['HQ'], ['Battleline'], ['Dreadnought']],
+          //   msg: "Must be one of the available types (case sensitive): Battleline ; HQ ; Dreadnought "
+          // }
         }
       },
       status: {
@@ -33,8 +38,8 @@ module.exports = {
         validate:{
           notEmpty: true,
           isIn: {
-            args: [['Available'], ['onMission']],
-            msg: "Must be one of the available types (case sensitive): Available ; onMission "
+            args: [['Available', 'onMission']],
+            msg: "Value must be one of the two available types (case sensitive): Available ; onMission "
           }
         }
       },
