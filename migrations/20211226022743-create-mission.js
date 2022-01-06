@@ -11,6 +11,7 @@ module.exports = {
       description: {
         type: Sequelize.STRING,
         validate:{
+          notNull: true,
           notEmpty: true,
           len: [1,300]
         }
@@ -18,16 +19,21 @@ module.exports = {
       location: {
         type: Sequelize.STRING,
         validate:{
-          notEmpty: true,
+          notNull: true,
+          notEmpty: true
         }
       },
       SquadID: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate:{
+          notNull: true
+        }
       },
       missionStatus: {
         type: Sequelize.STRING,
         validate:{
+          notNull: true,
           notEmpty: true,
           missionStatusValidator(value){
             if (value !== 'Active' && value !== 'Pending' && value !== 'Successful' && value !== 'Failed' ){

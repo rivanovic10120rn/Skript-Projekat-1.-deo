@@ -11,6 +11,7 @@ module.exports = {
       message: {
         type: Sequelize.STRING,
         validate:{
+          notNull: true,
           notEmpty: true,
           len:[1,300]
         }
@@ -23,15 +24,27 @@ module.exports = {
       // },
       MissionID: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate:{
+          notNull: true,
+          notEmpty: true
+        }
       },
       SoldierID: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate:{
+          notNull: true,
+          notEmpty: true
+        }
       },
       recieved: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        allowNull: false,
+        defaultValue: false,
+        validate:{
+          notNull: true
+        }
       },
       createdAt: {
         allowNull: false,

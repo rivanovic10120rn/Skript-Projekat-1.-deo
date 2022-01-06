@@ -1,4 +1,5 @@
 const { sequelize, Squads } = require('../models');
+const { newSquadValidation, updateSquadValidation } = require("../joi-validation.js");
 const express = require('express');
 
 const route = express.Router();

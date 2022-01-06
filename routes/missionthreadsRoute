@@ -1,4 +1,5 @@
 const { sequelize, Soldiers, Squads, Loadouts, Missions, MissionThreads } = require('../models');
+const { newMissionThreadMsgValidation, updateMissionThreadMsgValidation, } = require("../joi-validation.js");
 const express = require('express');
 
 const route = express.Router();

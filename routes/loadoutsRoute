@@ -1,4 +1,5 @@
 const { sequelize, Loadouts } = require('../models');
+const { newLoadoutValidation, updateLoadoutValidation, } = require("../joi-validation.js");
 const express = require('express');
 
 const route = express.Router();

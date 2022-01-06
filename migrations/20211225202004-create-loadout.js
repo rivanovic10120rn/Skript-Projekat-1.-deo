@@ -12,6 +12,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         validate:{
+          notNull: true,
           notEmpty: true,
           typeValidator(value){
             if (value !== 'HQ' && value !== 'Sergeant' && value !== 'Special Gunner' && value !== 'Heavy Gunner' && value !== 'Trooper' ){
@@ -28,26 +29,32 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         validate:{
-          notEmpty: true,
+          notNull: true,
+          notEmpty: true
         }
       },
       meleeWeapon: {
         type: Sequelize.STRING,
         allowNull: false,
         validate:{
-          notEmpty: true,
+          notNull: true,
+          notEmpty: true
         }
       },
       armourType: {
         type: Sequelize.STRING,
         allowNull: false,
         validate:{
+          notNull: true,
           notEmpty: true
         }
       },
       hasGrenades: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
+        validate:{
+          notNull: true
+        }
       },
       createdAt: {
         allowNull: false,

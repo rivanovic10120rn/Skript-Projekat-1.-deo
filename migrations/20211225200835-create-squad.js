@@ -13,13 +13,15 @@ module.exports = {
         allowNull: false,
         unique: true,
         validate:{
-          notEmpty: true,
+          notNull: true,
+          notEmpty: true
         }
       },
       type: {
         type: Sequelize.STRING,
         allowNull: false,
         validate:{
+          notNull: true,
           notEmpty: true,
           unitValidator(value){
             if (value !== 'HQ' && value !== 'Battleline' && value !== 'Dreadnought' ){
@@ -36,6 +38,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         validate:{
+          notNull: true,
           notEmpty: true,
           isIn: {
             args: [['Available', 'onMission']],

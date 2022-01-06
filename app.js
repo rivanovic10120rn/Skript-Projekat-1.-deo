@@ -19,11 +19,11 @@ const Joi = require('joi');
 
 const app = express();
 
-app.use('/api/squads', squadRt);
-app.use('/api/soldiers', soldierRt);
-app.use('/api/loadouts', loadoutRt);
-app.use('/api/missions', missionRt);
-app.use('/api/missionthreads', missionthreadRt);
+app.use('/admin/squads', squadRt);
+app.use('/admin/soldiers', soldierRt);
+app.use('/admin/loadouts', loadoutRt);
+app.use('/admin/missions', missionRt);
+app.use('/admin/missionthreads', missionthreadRt);
 
 // async function main(){
 //     await sequelize.authenticate();

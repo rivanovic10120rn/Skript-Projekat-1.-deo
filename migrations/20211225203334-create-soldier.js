@@ -12,6 +12,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         validate:{
+          notNull: true,
           notEmpty: true
         }
       },
@@ -20,14 +21,16 @@ module.exports = {
         allowNull: false,
         unique: true,
         validate:{
+          notNull: true,
           notEmpty: true,
-          len: [4,5]
+          len: [8,10]
         }
       },
       role: {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {
+          notNull: true,
           notEmpty: true,
           typeValidator(value){
             if (value !== 'HQ' && value !== 'Sergeant' && value !== 'Special Gunner' && value !== 'Heavy Gunner' && value !== 'Trooper' ){
@@ -39,15 +42,22 @@ module.exports = {
       SquadID: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        validate:{
+          notNull: true
+        }
       },
       LoadoutID: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate:{
+          notNull: true
+        }
       },
       status: {
         type: Sequelize.STRING,
         allowNull: false,
         validate:{
+          notNull: true,
           notEmpty: true,
           soldierStatusValidator(value){
             if (value !== 'Active' && value !== 'onMission' && value !== 'Missing' && value !== 'Deceased' ){
@@ -64,8 +74,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         validate:{
+          notNull: true,
           notEmpty: true,
-          len: [8,20]
+          len: [8,20],
+          isAlphanumeric: true
         }
       },
       createdAt: {
