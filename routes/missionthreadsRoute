@@ -28,7 +28,7 @@ route.get('/:id', (req, res) => {
 
 });
 
-route.get('/soldier/:id', (req, res) => {
+route.get('/soldier/:SoldierID', (req, res) => {
 
     MissionThreads.findAll({ where: { SoldierID: req.params.SoldierID },
         include: ['missionThread', 'sender'],
@@ -38,7 +38,7 @@ route.get('/soldier/:id', (req, res) => {
 
 });
 
-route.get('/mission/:id', (req, res) => {
+route.get('/mission/:MissionID', (req, res) => {
 
     MissionThreads.findAll({ where: { MissionID: req.params.MissionID },
         include: ['missionThread', 'sender'],
