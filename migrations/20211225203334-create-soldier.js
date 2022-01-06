@@ -31,7 +31,7 @@ module.exports = {
           notEmpty: true,
           typeValidator(value){
             if (value !== 'HQ' && value !== 'Sergeant' && value !== 'Special Gunner' && value !== 'Heavy Gunner' && value !== 'Trooper' ){
-              throw new Error('Value must be one of the available types (case sensitive): HQ ; Sergeant ; Special Gunner ; Heavy Gunner ; Trooper ')
+              throw new Error('Value must be one of the available types (case sensitive): HQ ; Sergeant ; Special Gunner ; Heavy Gunner ; Trooper ');
             }
           }
         }
@@ -51,7 +51,7 @@ module.exports = {
           notEmpty: true,
           soldierStatusValidator(value){
             if (value !== 'Active' && value !== 'onMission' && value !== 'Missing' && value !== 'Deceased' ){
-              throw new Error('Value must be one of the available types (case sensitive): Active ; onMission ; Missing ; Deceased ')
+              throw new Error('Value must be one of the available types (case sensitive): Active ; onMission ; Missing ; Deceased ');
             }
           }
           // isIn: {

@@ -31,7 +31,7 @@ module.exports = {
           notEmpty: true,
           missionStatusValidator(value){
             if (value !== 'Active' && value !== 'Pending' && value !== 'Successful' && value !== 'Failed' ){
-              throw new Error('Value must be one of the available types (case sensitive): Pending ; Active ; Successful ; Failed ')
+              throw new Error('Value must be one of the available types (case sensitive): Pending ; Active ; Successful ; Failed ');
             }
           }
           // isIn: {
