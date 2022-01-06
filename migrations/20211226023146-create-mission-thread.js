@@ -31,6 +31,7 @@ module.exports = {
       },
       recieved: {
         type: Sequelize.BOOLEAN,
+        defaultValue: true
       },
       createdAt: {
         allowNull: false,

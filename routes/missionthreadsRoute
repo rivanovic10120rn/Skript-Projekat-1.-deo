@@ -49,9 +49,9 @@ route.get('/mission/:id', (req, res) => {
 
 route.post('/', (req, res) => {
     
-    MissionThreads.create({ 
+    MissionThreads.create({ include: ['sender'],
         message: req.body.message,
-        timestamp: req.body.timestamp, 
+        // timestamp: req.body.timestamp, 
         MissionID: req.body.MissionID, 
         SoldierID: req.body.SoldierID,
         recieved: req.body.recieved
@@ -66,7 +66,7 @@ route.put('/:id', (req, res) => {
     MissionThreads.findOne({ where: { id: req.params.id } })
         .then( usr => {
             usr.message = req.body.message;
-            usr.timestamp = req.body.timestamp;
+            // usr.timestamp = req.body.timestamp;
             usr.MissionID = req.body.MissionID;
             usr.SoldierID = req.body.SoldierID;
             usr.recieved = req.body.recieved;
