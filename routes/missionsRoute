@@ -38,6 +38,12 @@ route.get('/squad/:id', (req, res) => {
 });
 
 route.post('/', (req, res) => {
+
+    const validEntry = newMissionValidation.validate(req.body);
+  
+    if(validEntry.error){
+        res.status(422).json({ msg: validEntry.error.message })
+    }
     
     Missions.create({
         description: req.body.description, 
@@ -51,6 +57,12 @@ route.post('/', (req, res) => {
 });
 
 route.put('/:id', (req, res) => {
+
+    const validEntry = updateMissionValidation.validate(req.body);
+  
+    if(validEntry.error){
+        res.status(422).json({ msg: validEntry.error.message })
+    }
     
     Missions.findOne({ where: { id: req.params.id } })
         .then( usr => {

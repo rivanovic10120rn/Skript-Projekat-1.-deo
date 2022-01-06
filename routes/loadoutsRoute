@@ -36,6 +36,12 @@ route.post('/', (req, res) => {
 });
 
 route.put('/:id', (req, res) => {
+
+    const validEntry = newLoadoutValidation.validate(req.body);
+  
+    if(validEntry.error){
+        res.status(422).json({ msg: validEntry.error.message })
+    }
     
     Loadouts.findOne({ where: { id: req.params.id } })
         .then( usr => {
@@ -54,6 +60,12 @@ route.put('/:id', (req, res) => {
 });
 
 route.delete('/:id', (req, res) => {
+
+    const validEntry = updateLoadoutValidation.validate(req.body);
+  
+    if(validEntry.error){
+        res.status(422).json({ msg: validEntry.error.message })
+    }
 
     Loadouts.findOne({ where: { id: req.params.id } })
         .then( usr => {

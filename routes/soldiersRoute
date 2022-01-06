@@ -52,6 +52,12 @@ route.get('/loadout/:id', (req, res) => {
 });
 
 route.post('/', (req, res) => {
+
+    const validEntry = newSoldierValidation.validate(req.body);
+  
+    if(validEntry.error){
+        res.status(422).json({ msg: validEntry.error.message })
+    }
     
     Soldiers.create({ 
         name: req.body.name,
@@ -67,6 +73,12 @@ route.post('/', (req, res) => {
 });
 
 route.put('/:id', (req, res) => {
+
+    const validEntry = updateSoldierValidation.validate(req.body);
+  
+    if(validEntry.error){
+        res.status(422).json({ msg: validEntry.error.message })
+    }
     
     Soldiers.findOne({ where: { id: req.params.id }, include: ['squad', 'equippedWith'], })
         .then( usr => {

@@ -24,6 +24,12 @@ route.get('/:id', (req, res) => {
 });
 
 route.post('/', (req, res) => {
+
+    const validEntry = newSquadValidation.validate(req.body);
+  
+    if(validEntry.error){
+        res.status(422).json({ msg: validEntry.error.message })
+    }
     
     Squads.create({ name: req.body.name, type: req.body.type, status: req.body.status })
         .then( rows => res.json(rows) )
@@ -32,6 +38,12 @@ route.post('/', (req, res) => {
 });
 
 route.put('/:id', (req, res) => {
+
+    const validEntry = updateSquadValidation.validate(req.body);
+  
+    if(validEntry.error){
+        res.status(422).json({ msg: validEntry.error.message })
+    }
     
     Squads.findOne({ where: { id: req.params.id } })
         .then( usr => {

@@ -49,6 +49,12 @@ route.get('/mission/:id', (req, res) => {
 });
 
 route.post('/', (req, res) => {
+
+    const validEntry = newMissionThreadMsgValidation.validate(req.body);
+  
+    if(validEntry.error){
+        res.status(422).json({ msg: validEntry.error.message })
+    }
     
     MissionThreads.create({ include: ['sender'],
         message: req.body.message,
@@ -63,6 +69,12 @@ route.post('/', (req, res) => {
 });
 
 route.put('/:id', (req, res) => {
+
+    const validEntry = updateMissionThreadMsgValidation.validate(req.body);
+  
+    if(validEntry.error){
+        res.status(422).json({ msg: validEntry.error.message })
+    }
     
     MissionThreads.findOne({ where: { id: req.params.id } })
         .then( usr => {
