@@ -15,7 +15,7 @@ module.exports = {
     return queryInterface.bulkInsert('Squads', [{
       name:"Captain Riangelus",
       type:'HQ',
-      status: 'Active'
+      status: 'Available'
     }]);
   },
 

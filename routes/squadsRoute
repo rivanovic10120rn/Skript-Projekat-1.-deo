@@ -29,13 +29,13 @@ route.post('/', (req, res) => {
   
     if(validEntry.error){
         res.status(422).json({ msg: validEntry.error.message })
-    }
+    }else{
     
     Squads.create({ name: req.body.name, type: req.body.type, status: req.body.status })
         .then( rows => res.json(rows) )
         .catch( err => res.status(500).json(err) );
 
-});
+}});
 
 route.put('/:id', (req, res) => {
 
@@ -43,7 +43,7 @@ route.put('/:id', (req, res) => {
   
     if(validEntry.error){
         res.status(422).json({ msg: validEntry.error.message })
-    }
+    }else{
     
     Squads.findOne({ where: { id: req.params.id } })
         .then( usr => {
@@ -57,7 +57,7 @@ route.put('/:id', (req, res) => {
         })
         .catch( err => res.status(500).json(err) );
 
-});
+}});
 
 route.delete('/:id', (req, res) => {
 
