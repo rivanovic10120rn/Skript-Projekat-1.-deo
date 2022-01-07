@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "An internal database for The Blood Angels' 6th Company 'Eternals'",
   "main": "app.js",
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Relja Ivanovic",
   "dependencies": {
+    "bootstrap": "^5.1.3",
     "express": "^4.17.2",
     "joi": "^17.5.0",
     "mariadb": "^2.5.5",
