@@ -40,9 +40,12 @@ function init() {
             body: JSON.stringify(data)
         })
             .then( res => res.json() )
-            .then( data => {
-                document.getElementById('squadTable').innerHTML += `<tr><td>${data.id}</td> <td>${data.name}</td> <td>${data.type}</td> <td>${data.status}</td></tr>`;
-            });
+            .then( el => {
+                if(el.msg){
+                    alert(el.msg)
+                }else{
+                document.getElementById('squadTable').innerHTML += `<tr><td>${el.id}</td> <td>${el.name}</td> <td>${el.type}</td> <td>${el.status}</td></tr>`;
+            }});
     });
 
 }
