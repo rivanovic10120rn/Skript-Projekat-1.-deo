@@ -21,7 +21,7 @@ function init() {
             });
         });
     
-    document.getElementById('squadsButton').addEventListener('click', e => {
+    document.getElementById('squadButton').addEventListener('click', e => {
         e.preventDefault();
 
         const data = {

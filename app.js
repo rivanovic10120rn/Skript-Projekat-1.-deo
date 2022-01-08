@@ -1,11 +1,11 @@
 const express = require("express");
 
 const { sequelize } = require('./models');
-const { Soldiers} = require('./models');
-const { Squads} = require('./models');
-const { Loadouts} = require('./models');
-const { Missions} = require('./models');
-const { MissionThreads} = require('./models');
+// const { Soldiers} = require('./models');
+// const { Squads} = require('./models');
+// const { Loadouts} = require('./models');
+// const { Missions} = require('./models');
+// const { MissionThreads} = require('./models');
 
 const squadRt = require('./routes/squadsRoute');
 const soldierRt = require('./routes/soldiersRoute');
