@@ -1,12 +1,23 @@
 function init() {
     
-    fetch('http://localhost:8080/admin/soldiers')
+    fetch('http://localhost:8080/admin/squads/')
         .then( res => res.json() )
         .then( data => {
-            const lst = document.getElementById('usrLst');
+            const lst = document.getElementById('squadList');
 
             data.forEach( el => {
-                lst.innerHTML += `<li>ID: ${el.id}, Name: ${el.name}, E-mail: ${el.email}</li>`;
+                lst.innerHTML += `<li>ID: ${el.id}</li> <ul><li>Name: ${el.name}</li> <li>Type: ${el.type}</li> <li>Status: ${el.status}</li></ul>`;
+            });
+        });
+
+
+    fetch('http://localhost:8080/admin/squads/')
+        .then( res => res.json() )
+        .then( data => {
+            const lst = document.getElementById('squadTable');
+
+            data.forEach( el => {
+                lst.innerHTML += `<tr><td>${el.id}</td> <td>${el.name}</td> <td>${el.type}</td> <td>${el.status}</td></tr>`;
             });
         });
 
@@ -16,7 +27,7 @@ function init() {
             const lst = document.getElementById('msgLst');
 
             data.forEach( el => {
-                lst.innerHTML += `<li>ID: ${el.id}, Body: ${el.body}, User: ${el.user.name}</li>`;
+                lst.innerHTML += `<li>ID: ${el.id}\n Body: ${el.body}\n User: ${el.user.name}</li>`;
             });
         });
     
