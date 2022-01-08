@@ -7,7 +7,7 @@ route.use(express.json());
 route.use(express.urlencoded({ extended: true }));
 
 
-route.get('/', (req, res) => {
+route.get('/missions/', (req, res) => {
 
     Missions.findAll({
         include: ['assignedSquad']
@@ -17,7 +17,7 @@ route.get('/', (req, res) => {
     
 });
 
-route.get('/:id', (req, res) => {
+route.get('/missions/:id', (req, res) => {
 
     Missions.findOne({ where: { id: req.params.id },
         include: ['assignedSquad']
@@ -27,7 +27,7 @@ route.get('/:id', (req, res) => {
 
 });
 
-route.get('/squad/:id', (req, res) => {
+route.get('/missions/squad/:id', (req, res) => {
 
     Missions.findOne({ where: { SquadID: req.params.SquadID },
         include: ['assignedSquad']
@@ -37,7 +37,7 @@ route.get('/squad/:id', (req, res) => {
 
 });
 
-route.post('/', (req, res) => {
+route.post('/missions/', (req, res) => {
 
     const validEntry = newMissionValidation.validate(req.body);
   
@@ -56,7 +56,7 @@ route.post('/', (req, res) => {
 
 }});
 
-route.put('/:id', (req, res) => {
+route.put('/missions/:id', (req, res) => {
 
     const validEntry = updateMissionValidation.validate(req.body);
   
@@ -79,7 +79,7 @@ route.put('/:id', (req, res) => {
 
 }});
 
-route.delete('/:id', (req, res) => {
+route.delete('/missions/:id', (req, res) => {
 
     Missions.findOne({ where: { id: req.params.id } })
         .then( usr => {

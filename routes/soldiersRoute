@@ -7,7 +7,7 @@ route.use(express.json());
 route.use(express.urlencoded({ extended: true }));
 
 
-route.get('/', (req, res) => {
+route.get('/soldiers/', (req, res) => {
 
     Soldiers.findAll({
         //mozda bespotreban include ali zbog foreign key i putanje?
@@ -21,7 +21,7 @@ route.get('/', (req, res) => {
     
 });
 
-route.get('/:id', (req, res) => {
+route.get('/soldiers/:id', (req, res) => {
 
     Soldiers.findOne({ where: { id: req.params.id },
         include: ['squad', 'equippedWith'],
@@ -31,7 +31,7 @@ route.get('/:id', (req, res) => {
 
 });
 
-route.get('/squad/:id', (req, res) => {
+route.get('/soldiers/squad/:id', (req, res) => {
 
     Soldiers.findAll({ where: { SquadID: req.params.SquadID },
         include: ['squad', 'equippedWith'],
@@ -41,7 +41,7 @@ route.get('/squad/:id', (req, res) => {
 
 });
 
-route.get('/loadout/:id', (req, res) => {
+route.get('/soldiers/loadout/:id', (req, res) => {
 
     Soldiers.findAll({ where: { LoadoutID: req.params.LoadoutID },
         include: ['squad', 'equippedWith'],
@@ -51,7 +51,7 @@ route.get('/loadout/:id', (req, res) => {
 
 });
 
-route.post('/', (req, res) => {
+route.post('/soldiers/', (req, res) => {
 
     const validEntry = newSoldierValidation.validate(req.body);
   
@@ -72,7 +72,7 @@ route.post('/', (req, res) => {
 
 }});
 
-route.put('/:id', (req, res) => {
+route.put('/soldiers/:id', (req, res) => {
 
     const validEntry = updateSoldierValidation.validate(req.body);
   
@@ -99,7 +99,7 @@ route.put('/:id', (req, res) => {
 
 }});
 
-route.delete('/:id', (req, res) => {
+route.delete('/soldiers/:id', (req, res) => {
 
     Soldiers.findOne({ where: { id: req.params.id } })
         .then( usr => {

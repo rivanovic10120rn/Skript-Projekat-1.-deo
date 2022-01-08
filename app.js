@@ -19,11 +19,11 @@ const Joi = require('joi');
 
 const app = express();
 
-app.use('/admin/squads', squadRt);
-app.use('/admin/soldiers', soldierRt);
-app.use('/admin/loadouts', loadoutRt);
-app.use('/admin/missions', missionRt);
-app.use('/admin/missionthreads', missionthreadRt);
+app.use('/admin', squadRt);
+app.use('/admin', soldierRt);
+app.use('/admin', loadoutRt);
+app.use('/admin', missionRt);
+app.use('/admin', missionthreadRt);
 
 app.use(express.static(path.join(__dirname,'static')));
 

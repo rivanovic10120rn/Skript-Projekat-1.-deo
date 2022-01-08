@@ -7,7 +7,7 @@ route.use(express.json());
 route.use(express.urlencoded({ extended: true }));
 
 
-route.get('/', (req, res) => {
+route.get('/squads/', (req, res) => {
 
     Squads.findAll()
         .then( rows => res.json(rows) )
@@ -15,7 +15,7 @@ route.get('/', (req, res) => {
     
 });
 
-route.get('/:id', (req, res) => {
+route.get('/squads/:id', (req, res) => {
 
     Squads.findOne({ where: { id: req.params.id } })
         .then( rows => res.json(rows) )
@@ -23,7 +23,7 @@ route.get('/:id', (req, res) => {
 
 });
 
-route.post('/', (req, res) => {
+route.post('/squads/', (req, res) => {
 
     const validEntry = newSquadValidation.validate(req.body);
   
@@ -37,7 +37,7 @@ route.post('/', (req, res) => {
 
 }});
 
-route.put('/:id', (req, res) => {
+route.put('/squads/:id', (req, res) => {
 
     const validEntry = updateSquadValidation.validate(req.body);
   
@@ -59,7 +59,7 @@ route.put('/:id', (req, res) => {
 
 }});
 
-route.delete('/:id', (req, res) => {
+route.delete('/squads/:id', (req, res) => {
 
     Squads.findOne({ where: { id: req.params.id } })
         .then( usr => {

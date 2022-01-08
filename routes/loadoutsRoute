@@ -7,7 +7,7 @@ route.use(express.json());
 route.use(express.urlencoded({ extended: true }));
 
 
-route.get('/', (req, res) => {
+route.get('/loadouts/', (req, res) => {
 
     Loadouts.findAll()
         .then( rows => res.json(rows) )
@@ -15,7 +15,7 @@ route.get('/', (req, res) => {
     
 });
 
-route.get('/:id', (req, res) => {
+route.get('/loadouts/:id', (req, res) => {
 
     Loadouts.findOne({ where: { id: req.params.id } })
         .then( rows => res.json(rows) )
@@ -23,7 +23,7 @@ route.get('/:id', (req, res) => {
 
 });
 
-route.post('/', (req, res) => {
+route.post('/loadouts/', (req, res) => {
 
     const validEntry = newLoadoutValidation.validate(req.body);
   
@@ -41,7 +41,7 @@ route.post('/', (req, res) => {
 
 }});
 
-route.put('/:id', (req, res) => {
+route.put('/loadouts/:id', (req, res) => {
 
     const validEntry = newLoadoutValidation.validate(req.body);
   
@@ -65,7 +65,7 @@ route.put('/:id', (req, res) => {
 
 }});
 
-route.delete('/:id', (req, res) => {
+route.delete('/loadouts/:id', (req, res) => {
 
     const validEntry = updateLoadoutValidation.validate(req.body);
   

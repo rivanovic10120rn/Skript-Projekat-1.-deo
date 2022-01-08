@@ -7,7 +7,7 @@ route.use(express.json());
 route.use(express.urlencoded({ extended: true }));
 
 
-route.get('/', (req, res) => {
+route.get('/missionthreads/', (req, res) => {
 
     MissionThreads.findAll({
         //mozda dodati squad i loadout zbog soldiera?
@@ -18,7 +18,7 @@ route.get('/', (req, res) => {
     
 });
 
-route.get('/:id', (req, res) => {
+route.get('/missionthreads/:id', (req, res) => {
 
     MissionThreads.findOne({ where: { id: req.params.id },
         include: ['missionThread', 'sender'],
@@ -28,7 +28,7 @@ route.get('/:id', (req, res) => {
 
 });
 
-route.get('/soldier/:SoldierID', (req, res) => {
+route.get('/missionthreads/soldier/:SoldierID', (req, res) => {
 
     MissionThreads.findAll({ where: { SoldierID: req.params.SoldierID },
         include: ['missionThread', 'sender'],
@@ -38,7 +38,7 @@ route.get('/soldier/:SoldierID', (req, res) => {
 
 });
 
-route.get('/mission/:MissionID', (req, res) => {
+route.get('/missionthreads/mission/:MissionID', (req, res) => {
 
     MissionThreads.findAll({ where: { MissionID: req.params.MissionID },
         include: ['missionThread', 'sender'],
@@ -48,7 +48,7 @@ route.get('/mission/:MissionID', (req, res) => {
 
 });
 
-route.post('/', (req, res) => {
+route.post('/missionthreads/', (req, res) => {
 
     const validEntry = newMissionThreadMsgValidation.validate(req.body);
   
@@ -68,7 +68,7 @@ route.post('/', (req, res) => {
 
 }});
 
-route.put('/:id', (req, res) => {
+route.put('/missionthreads/:id', (req, res) => {
 
     const validEntry = updateMissionThreadMsgValidation.validate(req.body);
   
@@ -92,7 +92,7 @@ route.put('/:id', (req, res) => {
 
 }});
 
-route.delete('/:id', (req, res) => {
+route.delete('/missionthreads/:id', (req, res) => {
 
     MissionThreads.findOne({ where: { id: req.params.id } })
         .then( usr => {
