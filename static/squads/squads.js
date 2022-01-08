@@ -16,10 +16,13 @@ function init() {
         .then( data => {
             const lst = document.getElementById('squadTable');
 
+            if(data.msg){
+                alert(data.msg);
+            }else{
             data.forEach( el => {
                 lst.innerHTML += `<tr><td>${el.id}</td> <td>${el.name}</td> <td>${el.type}</td> <td>${el.status}</td></tr>`;
             });
-        });
+        }});
     
     document.getElementById('squadButton').addEventListener('click', e => {
         e.preventDefault();
