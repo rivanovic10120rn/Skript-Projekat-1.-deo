@@ -17,6 +17,8 @@ module.exports = {
       MissionID: '1',
       SoldierID: '1',
       recieved: true,
+      createdAt: "2022-01-09T04:50:25.000Z",
+      updatedAt: "2022-01-09T04:50:25.000Z"
     }]);
   },
 

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang=en>
+    <head>
+        <title>Adding Missions</title>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="addMission.js"></script>
+        <style>
+            
+            .nav>li>a{
+                color: #000000;
+                background-color: #e2b900 !important;
+            }
+
+            .nav>li>a.active,
+            .nav>li>a:focus{
+            color: #ffffff !important;
+            background-color: #dc3545 !important;
+           }
+
+           
+           .nav>li>a:hover{
+            color: #e2b900 !important;
+            background-color: #dc3545 !important;
+           }
+
+            body {background-color: #1a1a1a;}
+            
+        </style>
+    </head>
+    <body onload="init()">
+        <div class="container-fluid p-5 bg-danger text-warning text-center">
+            <h1>6th Company 'Eternals'</h1>
+            <h2>Missions</h2> 
+        </div>
+        <ul class="nav nav-pills nav-fill mx-1 sticky-top">
+            <li class="nav-item">
+              <a class="nav-link" href="missions.html">Mission List</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link  active" aria-current="page" href="addMission.html">Add Mission</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="updateMission.html">Update Mission Info</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="deleteMission.html" >Delete Mission</a>
+            </li>
+        </ul>
+        <div class="container-fluid p-5 mt-5 text-warning">
+            <div class="row">
+                <div class="col">
+                    <form method="post" action="/admin/missions">
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <input type="text" class="form-control" id="description" name="description">
+                        </div>
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Location</label>
+                            <input type="text" class="form-control" id="location" name="location">
+                        </div>
+                        <div class="mb-3">
+                            <label for="SquadID" class="form-label">SquadID</label>
+                            <input type="text" class="form-control" id="SquadID" name="SquadID" aria-describedby="SquadIDHelp">
+                            <div id="SquadIDHelp" class="form-text">Insert the ID of the Squad that is assigned to this missions</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="missionStatus" class="form-label">Mission Status</label>
+                            <input type="text" class="form-control" id="missionStatus" name="missionStatus" aria-describedby="missionStatusHelp">
+                            <div id="missionStatusHelp" class="form-text">Mission status can be (case sensitive): Active, Pending, Successful or Failed</div>
+                        </div>
+                        <button type="submit" class="btn btn-danger" id="missionAddButton">Add Mission</button>
+                    </form>
+                </div>
+                <div class="col-6">
+                    <h2>Missions:</h2> 
+                    <table class="table table-dark text-danger ">
+                        <thead class="table-dark text-white">
+                          <tr>
+                            <th>ID</th>
+                            <th>Description</th>
+                            <th>Location</th>
+                            <th>SquadID</th>
+                            <th>Mission Status</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                          </tr>
+                        </thead>
+                        <tbody id="missionTable">
+          
+                        </tbody>
+                      </table>
+                </div> 
+            </div>             
+        </div>
+        <nav class="navbar navbar-expand-sm bg-danger fixed-bottom">
+            <div class="d-grid">
+              <a href="../../" class="btn btn-danger" id="homeBtn">Back to Homepage</a>
+            </div>
+        </nav>
+    </body>
+</html>

@@ -29,7 +29,7 @@ route.get('/missions/:id', (req, res) => {
 
 route.get('/missions/squad/:id', (req, res) => {
 
-    Missions.findOne({ where: { SquadID: req.params.SquadID },
+    Missions.findOne({ where: { SquadID: req.params.id },
         include: ['assignedSquad']
           })
         .then( rows => res.json(rows) )

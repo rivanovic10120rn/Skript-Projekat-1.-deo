@@ -18,6 +18,8 @@ module.exports = {
       location: 'Imperium Nihilus',
       SquadID: '1',
       missionStatus: 'Active',
+      createdAt: "2022-01-09T04:50:25.000Z",
+      updatedAt: "2022-01-09T04:50:25.000Z"
     }]);
 
   },
