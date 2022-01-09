@@ -67,12 +67,6 @@ route.put('/loadouts/:id', (req, res) => {
 
 route.delete('/loadouts/:id', (req, res) => {
 
-    const validEntry = updateLoadoutValidation.validate(req.body);
-  
-    if(validEntry.error){
-        res.status(422).json({ msg: validEntry.error.message })
-    }
-
     Loadouts.findOne({ where: { id: req.params.id } })
         .then( usr => {
             usr.destroy()

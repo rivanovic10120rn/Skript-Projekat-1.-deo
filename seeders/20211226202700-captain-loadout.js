@@ -21,7 +21,7 @@ module.exports = {
     return queryInterface.bulkInsert('Loadouts', [{
       type: 'HQ',
       rangedWeapon: 'Boltstorm Gauntlet',
-      meleeWeapon: 'MasterCrafted Power Sword & Power Gauntlet',
+      meleeWeapon: 'Master-Crafted Power Sword & Power Gauntlet',
       armourType: 'Mk. X Gravis',
       hasGrenades: true
     }]);

@@ -25,7 +25,7 @@ function init() {
     }});
 
 
-    document.getElementById('squadButton').addEventListener('click', e => {
+    document.getElementById('squadAddButton').addEventListener('click', e => {
         e.preventDefault();
 
         const data = {

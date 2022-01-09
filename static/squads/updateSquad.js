@@ -24,7 +24,7 @@ function init() {
             });
         }});
 
-    document.getElementById('updateButton').addEventListener('click', e => {
+    document.getElementById('squadUpdateButton').addEventListener('click', e => {
         e.preventDefault();
 
         const id = document.getElementById('id').value;
