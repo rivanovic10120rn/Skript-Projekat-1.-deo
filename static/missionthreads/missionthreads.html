@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang=en>
     <head>
-        <title>Missions</title>
+        <title>All Mission Message Threads</title>
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +9,7 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-        <script src="missions.js"></script>
+        <script src="missionthreads.js"></script>
         <style>
             
             .nav>li>a{
@@ -36,61 +36,71 @@
     <body onload="init()">
         <div class="container-fluid p-5 bg-danger text-warning text-center">
             <h1>6th Company 'Eternals'</h1>
-            <h2>Current Missions</h2> 
+            <h2>All Mission Messages</h2> 
           </div>
         <ul class="nav nav-pills nav-fill mx-1 sticky-top">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="missions.html">Mission List</a>
+              <a class="nav-link active" aria-current="page" href="missionthreads.html">Message List</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="addMission.html">Add Mission</a>
+              <a class="nav-link" href="addMissionThread.html">Add Message</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="updateMission.html">Update Mission Info</a>
+              <a class="nav-link" href="updateMissionThread.html">Update Message Info</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="deleteMission.html" >Delete Mission</a>
+              <a class="nav-link" href="deleteMissionThread.html" >Delete Message</a>
             </li>
           </ul>
           <div class="container p-1 mt-3 text-warning text-center">
             <div class="row">
               <div class="col">
-                <form method="get" action="/admin/missions">
+                <form method="get" action="/admin/missionthreads">
                   <div class="mb-3">
                     <label for="id" class="form-label">ID</label>
                     <input type="number" class="form-control" id="id" name="id" aria-describedby="idHelp">
                     <div id="idHelp" class="form-text">Enter the ID of the mission you wish to find</div>
                   </div>
-                  <button type="submit" class="btn btn-danger" id="missionButton">Find Mission</button>
+                  <button type="submit" class="btn btn-danger" id="missionThreadButton">Find Mission</button>
                 </form>
               </div>
               <div class="col">
-                <form method="get" action="/admin/missions/squad">
+                <form method="get" action="/admin/missionthreads/mission">
                   <div class="mb-3">
-                    <label for="SquadID" class="form-label">SquadID</label>
-                    <input type="number" class="form-control" id="SquadID" name="SquadID" aria-describedby="SquadIDHelp">
-                    <div id="SquadIDHelp" class="form-text">Enter the ID of the squad to see which mission they are assigned to</div>
+                    <label for="MissionID" class="form-label">MissionID</label>
+                    <input type="number" class="form-control" id="MissionID" name="MissionID" aria-describedby="MissionIDHelp">
+                    <div id="MissionIDHelp" class="form-text">Enter the ID of the mission whose thread you wish to see</div>
                   </div>
-                  <button type="submit" class="btn btn-danger" id="missionSquadButton">Find Assigned Mission</button>
+                  <button type="submit" class="btn btn-danger" id="missionThreadMissionButton">Find Assigned Mission</button>
+                </form>
+              </div>
+              <div class="col">
+                <form method="get" action="/admin/missionthreads/soldier">
+                  <div class="mb-3">
+                    <label for="SoldierID" class="form-label">SoldierID</label>
+                    <input type="number" class="form-control" id="SoldierID" name="SoldierID" aria-describedby="SoldierIDHelp">
+                    <div id="SoldierIDHelp" class="form-text">Enter the ID of the soldier whose messages you wish to find</div>
+                  </div>
+                  <button type="submit" class="btn btn-danger" id="missionThreadSoldierButton">Find Assigned Mission</button>
                 </form>
               </div>
             </div>
           </div>
           <div class="container-fluid p-5 mt-5 text-warning">
-            <h2>Missions:</h2>           
+            <h2>Messages:</h2>           
             <table class="table table-dark text-danger ">
               <thead class="table-dark text-white">
                 <tr>
                   <th>ID</th>
-                  <th>Description</th>
-                  <th>Location</th>
-                  <th>SquadID</th>
-                  <th>Mission Status</th>
+                  <th>Message</th>
+                  <th>MissionID</th>
+                  <th>SoldierID</th>
+                  <th>Recieved</th>
                   <th>Created At</th>
                   <th>Updated At</th>
                 </tr>
               </thead>
-              <tbody id="missionTable">
+              <tbody id="missionThreadTable">
 
               </tbody>
             </table>
