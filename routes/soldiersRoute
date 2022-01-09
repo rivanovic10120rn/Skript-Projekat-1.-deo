@@ -33,7 +33,7 @@ route.get('/soldiers/:id', (req, res) => {
 
 route.get('/soldiers/squad/:id', (req, res) => {
 
-    Soldiers.findAll({ where: { SquadID: req.params.SquadID },
+    Soldiers.findAll({ where: { SquadID: req.params.id },
         include: ['squad', 'equippedWith'],
          })
         .then( rows => res.json(rows) )
@@ -43,7 +43,7 @@ route.get('/soldiers/squad/:id', (req, res) => {
 
 route.get('/soldiers/loadout/:id', (req, res) => {
 
-    Soldiers.findAll({ where: { LoadoutID: req.params.LoadoutID },
+    Soldiers.findAll({ where: { LoadoutID: req.params.id },
         include: ['squad', 'equippedWith'],
          })
         .then( rows => res.json(rows) )

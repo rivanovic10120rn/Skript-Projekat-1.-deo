@@ -62,14 +62,38 @@
             </li>
           </ul>
           <div class="container p-1 mt-3 text-warning text-center">
-            <form method="get" action="/admin/soldiers">
-              <div class="mb-3">
-                <label for="id" class="form-label">ID</label>
-                <input type="number" class="form-control" id="id" name="id" aria-describedby="idHelp">
-                <div id="idHelp" class="form-text">Enter the ID of the soldier you wish to find</div>
+            <div class="row">
+              <div class="col">
+                <form method="get" action="/admin/soldiers">
+                  <div class="mb-3">
+                    <label for="id" class="form-label">ID</label>
+                    <input type="number" class="form-control" id="id" name="id" aria-describedby="idHelp">
+                    <div id="idHelp" class="form-text">Enter the ID of the soldier you wish to find</div>
+                  </div>
+                  <button type="submit" class="btn btn-danger" id="soldierButton">Find Soldier</button>
+                </form>
               </div>
-              <button type="submit" class="btn btn-danger" id="soldierButton">Find Loadout</button>
-            </form>
+              <div class="col">
+                <form method="get" action="/admin/soldiers/squad">
+                  <div class="mb-3">
+                    <label for="SquadID" class="form-label">SquadID</label>
+                    <input type="number" class="form-control" id="SquadID" name="SquadID" aria-describedby="SquadIDHelp">
+                    <div id="SquadIDHelp" class="form-text">Enter the ID of the squad of which you wish to find the soldiers</div>
+                  </div>
+                  <button type="submit" class="btn btn-danger" id="soldierSquadButton">Find Squadmembers</button>
+                </form>
+              </div>
+              <div class="col">
+                <form method="get" action="/admin/soldiers/loadout">
+                  <div class="mb-3">
+                    <label for="LoadoutID" class="form-label">LoadoutID</label>
+                    <input type="number" class="form-control" id="LoadoutID" name="LoadoutID" aria-describedby="LoadoutIDHelp">
+                    <div id="LoadoutIDHelp" class="form-text">Enter the ID of the loadout which the soldiers are equipped with</div>
+                  </div>
+                  <button type="submit" class="btn btn-danger" id="soldierLoadoutButton">Find Equipped Soldiers</button>
+                </form>
+              </div>
+            </div>
           </div>
           <div class="container-fluid p-5 mt-5 text-warning">
             <h2>Soldiers:</h2>           
