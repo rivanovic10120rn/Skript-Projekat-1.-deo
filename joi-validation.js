@@ -76,6 +76,11 @@ const updateMissionThreadMsgValidation = Joi.object({
     recieved: Joi.boolean().truthy('yes').falsy('no').required()
 });
 
+const loginSoldierValidation = Joi.object({
+    tag: Joi.string().pattern(/^[a-zA-Z]\d-[a-zA-Z][a-zA-Z]\d\d-6$/).required(),
+    password: Joi.string().trim().alphanum().min(3).max(20).required(),
+});
+
 
 
 module.exports = { 
@@ -88,5 +93,6 @@ module.exports = {
     newMissionValidation,
     updateMissionValidation,
     newMissionThreadMsgValidation,
-    updateMissionThreadMsgValidation
+    updateMissionThreadMsgValidation,
+    loginSoldierValidation
 };

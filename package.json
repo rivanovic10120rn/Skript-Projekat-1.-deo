@@ -8,11 +8,16 @@
   },
   "author": "Relja Ivanovic",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "jsonwebtoken": "^8.5.1",
     "bootstrap": "^5.1.3",
     "express": "^4.17.2",
     "joi": "^17.5.0",
     "mariadb": "^2.5.5",
     "nodemon": "^2.0.15",
-    "sequelize": "^7.0.0-alpha.2"
+    "sequelize": "^7.0.0-alpha.2",
+    "sequelize-cli": "^6.3.0"
   }
 }
