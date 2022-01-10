@@ -30,105 +30,217 @@ route.use(authToken);
 
 route.get('/soldiers/', (req, res) => {
 
-    Soldiers.findAll({
-        //mozda bespotreban include ali zbog foreign key i putanje?
-        // include: {model: Squads, as: 'squad'},
-        // include: {model: Loadouts, as: 'loadout'}
-        include: ['squad', 'equippedWith'],
-        // include: ['equippedWith']
-         })
-        .then( rows => res.json(rows) )
-        .catch( err => res.status(500).json(err) );
+    Soldiers.findOne({ where: { id: req.user.userID }})
+        .then( usr => {
+            Soldiers.findAll({
+                include: ['squad', 'equippedWith'],
+                 })
+                .then( rows => res.json(rows) )
+                .catch( err => res.status(500).json(err) );
+        })
+        .catch( err => res.status(500).json(err));
+
+    // Soldiers.findAll({
+    //     //mozda bespotreban include ali zbog foreign key i putanje?
+    //     // include: {model: Squads, as: 'squad'},
+    //     // include: {model: Loadouts, as: 'loadout'}
+    //     include: ['squad', 'equippedWith'],
+    //     // include: ['equippedWith']
+    //      })
+    //     .then( rows => res.json(rows) )
+    //     .catch( err => res.status(500).json(err) );
     
 });
 
 route.get('/soldiers/:id', (req, res) => {
 
-    Soldiers.findOne({ where: { id: req.params.id },
-        include: ['squad', 'equippedWith'],
-         })
-        .then( rows => res.json(rows) )
-        .catch( err => res.status(500).json(err) );
+    Soldiers.findOne({ where: { id: req.user.userID }})
+        .then( usr => {
+            Soldiers.findOne({ where: { id: req.params.id },
+                include: ['squad', 'equippedWith'],
+                 })
+                .then( rows => res.json(rows) )
+                .catch( err => res.status(500).json(err) );
+        })
+        .catch( err => res.status(500).json(err));
+
+    // Soldiers.findOne({ where: { id: req.params.id },
+    //     include: ['squad', 'equippedWith'],
+    //      })
+    //     .then( rows => res.json(rows) )
+    //     .catch( err => res.status(500).json(err) );
 
 });
 
 route.get('/soldiers/squad/:id', (req, res) => {
 
-    Soldiers.findAll({ where: { SquadID: req.params.id },
-        include: ['squad', 'equippedWith'],
-         })
-        .then( rows => res.json(rows) )
-        .catch( err => res.status(500).json(err) );
+    Soldiers.findOne({ where: { id: req.user.userID }})
+        .then( usr => {
+            Soldiers.findAll({ where: { SquadID: req.params.id },
+                include: ['squad', 'equippedWith'],
+                 })
+                .then( rows => res.json(rows) )
+                .catch( err => res.status(500).json(err) );
+        })
+        .catch( err => res.status(500).json(err));
+
+    // Soldiers.findAll({ where: { SquadID: req.params.id },
+    //     include: ['squad', 'equippedWith'],
+    //      })
+    //     .then( rows => res.json(rows) )
+    //     .catch( err => res.status(500).json(err) );
 
 });
 
 route.get('/soldiers/loadout/:id', (req, res) => {
 
-    Soldiers.findAll({ where: { LoadoutID: req.params.id },
-        include: ['squad', 'equippedWith'],
-         })
-        .then( rows => res.json(rows) )
-        .catch( err => res.status(500).json(err) );
+    Soldiers.findOne({ where: { id: req.user.userID }})
+        .then( usr => {
+            Soldiers.findAll({ where: { LoadoutID: req.params.id },
+                include: ['squad', 'equippedWith'],
+                 })
+                .then( rows => res.json(rows) )
+                .catch( err => res.status(500).json(err) );
+        })
+        .catch( err => res.status(500).json(err));
+
+    // Soldiers.findAll({ where: { LoadoutID: req.params.id },
+    //     include: ['squad', 'equippedWith'],
+    //      })
+    //     .then( rows => res.json(rows) )
+    //     .catch( err => res.status(500).json(err) );
 
 });
 
 route.post('/soldiers/', (req, res) => {
 
-    const validEntry = newSoldierValidation.validate(req.body);
+    Soldiers.findOne({ where: { id: req.user.userID }})
+        .then( usr => {
+            if(usr.role == "HQ"){
+                const validEntry = newSoldierValidation.validate(req.body);
   
-    if(validEntry.error){
-        res.status(422).json({ msg: validEntry.error.message })
-    }else{
-    
-    Soldiers.create({ 
-        name: req.body.name,
-        tag: req.body.tag,
-        role: req.body.role,
-        SquadID: req.body.SquadID, 
-        LoadoutID: req.body.LoadoutID, 
-        status: req.body.status, 
-        password: req.body.password })
-        .then( rows => res.json(rows) )
-        .catch( err => res.status(500).json(err) );
+                if(validEntry.error){
+                    res.status(422).json({ msg: validEntry.error.message })
+                }else{
+                
+                Soldiers.create({ 
+                    name: req.body.name,
+                    tag: req.body.tag,
+                    role: req.body.role,
+                    SquadID: req.body.SquadID, 
+                    LoadoutID: req.body.LoadoutID, 
+                    status: req.body.status, 
+                    password: req.body.password })
+                    .then( rows => res.json(rows) )
+                    .catch( err => res.status(500).json(err) );
+                }
+            }else {
+                res.status(403).json({ msg: "ERROR: You have invalid privileges to preform this action"})
+            }
+        })
+        .catch( err => res.status(500).json(err));
 
-}});
+    // const validEntry = newSoldierValidation.validate(req.body);
+  
+    // if(validEntry.error){
+    //     res.status(422).json({ msg: validEntry.error.message })
+    // }else{
+    
+    // Soldiers.create({ 
+    //     name: req.body.name,
+    //     tag: req.body.tag,
+    //     role: req.body.role,
+    //     SquadID: req.body.SquadID, 
+    //     LoadoutID: req.body.LoadoutID, 
+    //     status: req.body.status, 
+    //     password: req.body.password })
+    //     .then( rows => res.json(rows) )
+    //     .catch( err => res.status(500).json(err) );
+    // }
+});
 
 route.put('/soldiers/:id', (req, res) => {
 
-    const validEntry = updateSoldierValidation.validate(req.body);
-  
-    if(validEntry.error){
-        res.status(422).json({ msg: validEntry.error.message })
-    }else{
-    
-    Soldiers.findOne({ where: { id: req.params.id }, include: ['squad', 'equippedWith'], })
+    Soldiers.findOne({ where: { id: req.user.userID }})
         .then( usr => {
-            usr.name = req.body.name;
-            usr.tag = req.body.tag;
-            usr.role = req.body.role;
-            usr.SquadID = req.body.SquadID;
-            usr.LoadoutID = req.body.LoadoutID;
-            usr.status = req.body.status;
-            //#TODO posebna metoda za promeni lozinke
-            usr.password = req.body.password; //mozda izdvojiti password?
+            const validEntry = updateSoldierValidation.validate(req.body);
+  
+            if(validEntry.error){
+                res.status(422).json({ msg: validEntry.error.message })
+            }else{
+            
+            Soldiers.findOne({ where: { id: req.params.id }, include: ['squad', 'equippedWith'], })
+                .then( load => {
+                    if(usr.role == "HQ" || usr.role == "Sergeant" || usr.id == load.id){
+                        load.name = req.body.name;
+                        load.tag = req.body.tag;
+                        load.role = req.body.role;
+                        load.SquadID = req.body.SquadID;
+                        load.LoadoutID = req.body.LoadoutID;
+                        load.status = req.body.status;
+                        load.password = req.body.password;
 
-            usr.save()
-                .then( rows => res.json(rows) )
-                .catch( err => res.status(500).json(err) );
+                        load.save()
+                            .then( rows => res.json(rows) )
+                            .catch( err => res.status(500).json(err) );
+                    }else{
+                        res.status(403).json({ msg: "ERROR: You have invalid privileges to preform this action"})
+                    }
+                })
+                .catch( err => res.status(500).json({ msg: "ERROR: Soldier with that ID not found"}) );
+            }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json(err));
 
-}});
+    // const validEntry = updateSoldierValidation.validate(req.body);
+  
+    // if(validEntry.error){
+    //     res.status(422).json({ msg: validEntry.error.message })
+    // }else{
+    
+    // Soldiers.findOne({ where: { id: req.params.id }, include: ['squad', 'equippedWith'], })
+    //     .then( usr => {
+    //         usr.name = req.body.name;
+    //         usr.tag = req.body.tag;
+    //         usr.role = req.body.role;
+    //         usr.SquadID = req.body.SquadID;
+    //         usr.LoadoutID = req.body.LoadoutID;
+    //         usr.status = req.body.status;
+    //         usr.password = req.body.password;
+
+    //         usr.save()
+    //             .then( rows => res.json(rows) )
+    //             .catch( err => res.status(500).json(err) );
+    //     })
+    //     .catch( err => res.status(500).json(err) );
+    // }
+});
 
 route.delete('/soldiers/:id', (req, res) => {
 
-    Soldiers.findOne({ where: { id: req.params.id } })
+    Soldiers.findOne({ where: { id: req.user.userID }})
         .then( usr => {
-            usr.destroy()
-                .then( rows => res.json(rows) )
-                .catch( err => res.status(500).json(err) );
+            if(usr.role == "HQ"){
+                Soldiers.findOne({ where: { id: req.params.id } })
+                    .then( load => {
+                        load.destroy()
+                            .then( rows => res.json(rows) )
+                            .catch( err => res.status(500).json(err) );
+                    })
+                    .catch( err => res.status(500).json(err) );
+            }else {
+                res.status(403).json({ msg: "ERROR: You have invalid privileges to preform this action"})
+            }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json(err));
+
+    // Soldiers.findOne({ where: { id: req.params.id } })
+    //     .then( usr => {
+    //         usr.destroy()
+    //             .then( rows => res.json(rows) )
+    //             .catch( err => res.status(500).json(err) );
+    //     })
+    //     .catch( err => res.status(500).json(err) );
 });
 
 module.exports = route;

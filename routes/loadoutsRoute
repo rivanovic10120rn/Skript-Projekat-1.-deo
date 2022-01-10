@@ -102,37 +102,81 @@ route.post('/loadouts/', (req, res) => {
 
 route.put('/loadouts/:id', (req, res) => {
 
-    const validEntry = newLoadoutValidation.validate(req.body);
-  
-    if(validEntry.error){
-        res.status(422).json({ msg: validEntry.error.message })
-    }else{
-    
-    Loadouts.findOne({ where: { id: req.params.id } })
+    Soldiers.findOne({ where: { id: req.user.userID }})
         .then( usr => {
-            usr.type = req.body.type;
-            usr.rangedWeapon = req.body.rangedWeapon;
-            usr.meleeWeapon = req.body.meleeWeapon;
-            usr.armourType = req.body.armourType;
-            usr.hasGrenades = req.body.hasGrenades;
+            if(usr.role == "HQ" || usr.role == "Sergeant"){
+                const validEntry = newLoadoutValidation.validate(req.body);
+  
+                if(validEntry.error){
+                    res.status(422).json({ msg: validEntry.error.message })
+                }else{
+                
+                Loadouts.findOne({ where: { id: req.params.id } })
+                    .then( load => {
+                        load.type = req.body.type;
+                        load.rangedWeapon = req.body.rangedWeapon;
+                        load.meleeWeapon = req.body.meleeWeapon;
+                        load.armourType = req.body.armourType;
+                        load.hasGrenades = req.body.hasGrenades;
 
-            usr.save()
-                .then( rows => res.json(rows) )
-                .catch( err => res.status(500).json(err) );
+                        load.save()
+                            .then( rows => res.json(rows) )
+                            .catch( err => res.status(500).json(err) );
+                    })
+                    .catch( err => res.status(500).json(err) );
+                }
+            }else {
+                res.status(403).json({ msg: "ERROR: You have invalid privileges to preform this action"})
+            }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json(err));
 
-}});
+    // const validEntry = newLoadoutValidation.validate(req.body);
+  
+    // if(validEntry.error){
+    //     res.status(422).json({ msg: validEntry.error.message })
+    // }else{
+    
+    // Loadouts.findOne({ where: { id: req.params.id } })
+    //     .then( usr => {
+    //         usr.type = req.body.type;
+    //         usr.rangedWeapon = req.body.rangedWeapon;
+    //         usr.meleeWeapon = req.body.meleeWeapon;
+    //         usr.armourType = req.body.armourType;
+    //         usr.hasGrenades = req.body.hasGrenades;
+
+    //         usr.save()
+    //             .then( rows => res.json(rows) )
+    //             .catch( err => res.status(500).json(err) );
+    //     })
+    //     .catch( err => res.status(500).json(err) );}
+});
 
 route.delete('/loadouts/:id', (req, res) => {
 
-    Loadouts.findOne({ where: { id: req.params.id } })
+    Soldiers.findOne({ where: { id: req.user.userID }})
         .then( usr => {
-            usr.destroy()
-                .then( rows => res.json(rows) )
-                .catch( err => res.status(500).json(err) );
+            if(usr.role == "HQ" || usr.role == "Sergeant"){
+                Loadouts.findOne({ where: { id: req.params.id } })
+                    .then( load => {
+                        load.destroy()
+                            .then( rows => res.json(rows) )
+                            .catch( err => res.status(500).json(err) );
+                    })
+                    .catch( err => res.status(500).json(err) );
+            }else {
+                res.status(403).json({ msg: "ERROR: You have invalid privileges to preform this action"})
+            }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json(err));
+
+    // Loadouts.findOne({ where: { id: req.params.id } })
+    //     .then( usr => {
+    //         usr.destroy()
+    //             .then( rows => res.json(rows) )
+    //             .catch( err => res.status(500).json(err) );
+    //     })
+    //     .catch( err => res.status(500).json(err) );
 });
 
 module.exports = route;

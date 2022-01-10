@@ -1,4 +1,4 @@
-const { sequelize, Squads } = require('../models');
+const { sequelize, Squads, Soldiers } = require('../models');
 const { newSquadValidation, updateSquadValidation } = require("../joi-validation.js");
 const express = require('express');
 
@@ -30,65 +30,143 @@ route.use(authToken);
 
 route.get('/squads/', (req, res) => {
 
-    Squads.findAll()
-        .then( rows => res.json(rows) )
-        .catch( err => res.status(500).json(err) );
+    Soldiers.findOne({ where: { id: req.user.userID }})
+        .then( usr => {
+            Squads.findAll()
+                .then( rows => res.json(rows) )
+                .catch( err => res.status(500).json(err) );
+        })
+        .catch( err => res.status(500).json(err));
+
+    // Squads.findAll()
+    //     .then( rows => res.json(rows) )
+    //     .catch( err => res.status(500).json(err) );
     
 });
 
 route.get('/squads/:id', (req, res) => {
 
-    Squads.findOne({ where: { id: req.params.id } })
-        .then( rows => res.json(rows) )
-        .catch( err => res.status(500).json(err) );
+    Soldiers.findOne({ where: { id: req.user.userID }})
+        .then( usr => {
+            Squads.findOne({ where: { id: req.params.id } })
+                .then( rows => res.json(rows) )
+                .catch( err => res.status(500).json(err) );
+        })
+        .catch( err => res.status(500).json(err));
+
+    // Squads.findOne({ where: { id: req.params.id } })
+    //     .then( rows => res.json(rows) )
+    //     .catch( err => res.status(500).json(err) );
 
 });
 
 route.post('/squads/', (req, res) => {
 
-    const validEntry = newSquadValidation.validate(req.body);
+    Soldiers.findOne({ where: { id: req.user.userID }})
+        .then( usr => {
+            if(usr.role == "HQ"){
+                const validEntry = newSquadValidation.validate(req.body);
   
-    if(validEntry.error){
-        res.status(422).json({ msg: validEntry.error.message })
-    }else{
-    
-    Squads.create({ name: req.body.name, type: req.body.type, status: req.body.status })
-        .then( rows => res.json(rows) )
-        .catch( err => res.status(500).json(err) );
+                if(validEntry.error){
+                    res.status(422).json({ msg: validEntry.error.message })
+                }else{
+                
+                Squads.create({ name: req.body.name, type: req.body.type, status: req.body.status })
+                    .then( rows => res.json(rows) )
+                    .catch( err => res.status(500).json(err) );
+                }
+            }else {
+                res.status(403).json({ msg: "ERROR: You have invalid privileges to preform this action"})
+            }
+        })
+        .catch( err => res.status(500).json(err));
 
-}});
+    // const validEntry = newSquadValidation.validate(req.body);
+  
+    // if(validEntry.error){
+    //     res.status(422).json({ msg: validEntry.error.message })
+    // }else{
+    
+    // Squads.create({ name: req.body.name, type: req.body.type, status: req.body.status })
+    //     .then( rows => res.json(rows) )
+    //     .catch( err => res.status(500).json(err) );
+    // }
+});
 
 route.put('/squads/:id', (req, res) => {
 
-    const validEntry = updateSquadValidation.validate(req.body);
-  
-    if(validEntry.error){
-        res.status(422).json({ msg: validEntry.error.message })
-    }else{
-    
-    Squads.findOne({ where: { id: req.params.id } })
+    Soldiers.findOne({ where: { id: req.user.userID }})
         .then( usr => {
-            usr.name = req.body.name;
-            usr.type = req.body.type;
-            usr.status = req.body.status;
-
-            usr.save()
-                .then( rows => res.json(rows) )
-                .catch( err => res.status(500).json(err) );
+            if(usr.role == "HQ"){
+                const validEntry = updateSquadValidation.validate(req.body);
+  
+                if(validEntry.error){
+                    res.status(422).json({ msg: validEntry.error.message })
+                }else{
+                
+                Squads.findOne({ where: { id: req.params.id } })
+                    .then( usr => {
+                        usr.name = req.body.name;
+                        usr.type = req.body.type;
+                        usr.status = req.body.status;
+            
+                        usr.save()
+                            .then( rows => res.json(rows) )
+                            .catch( err => res.status(500).json(err) );
+                    })
+                    .catch( err => res.status(500).json(err) );
+                }
+            }else {
+                res.status(403).json({ msg: "ERROR: You have invalid privileges to preform this action"})
+            }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json(err));
 
-}});
+    // const validEntry = updateSquadValidation.validate(req.body);
+  
+    // if(validEntry.error){
+    //     res.status(422).json({ msg: validEntry.error.message })
+    // }else{
+    
+    // Squads.findOne({ where: { id: req.params.id } })
+    //     .then( usr => {
+    //         usr.name = req.body.name;
+    //         usr.type = req.body.type;
+    //         usr.status = req.body.status;
+
+    //         usr.save()
+    //             .then( rows => res.json(rows) )
+    //             .catch( err => res.status(500).json(err) );
+    //     })
+    //     .catch( err => res.status(500).json(err) );
+    // }
+});
 
 route.delete('/squads/:id', (req, res) => {
 
-    Squads.findOne({ where: { id: req.params.id } })
+    Soldiers.findOne({ where: { id: req.user.userID }})
         .then( usr => {
-            usr.destroy()
-                .then( rows => res.json(rows) )
-                .catch( err => res.status(500).json(err) );
+            if(usr.role == "HQ"){
+                Squads.findOne({ where: { id: req.params.id } })
+                    .then( load => {
+                        load.destroy()
+                            .then( rows => res.json(rows) )
+                            .catch( err => res.status(500).json(err) );
+                    })
+                    .catch( err => res.status(500).json(err) );
+            }else {
+                res.status(403).json({ msg: "ERROR: You have invalid privileges to preform this action"})
+            }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json(err));
+
+    // Squads.findOne({ where: { id: req.params.id } })
+    //     .then( usr => {
+    //         usr.destroy()
+    //             .then( rows => res.json(rows) )
+    //             .catch( err => res.status(500).json(err) );
+    //     })
+    //     .catch( err => res.status(500).json(err) );
 });
 
 
