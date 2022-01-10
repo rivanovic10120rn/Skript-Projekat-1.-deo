@@ -1,4 +1,4 @@
-const { sequelize, Loadouts } = require('../models');
+const { sequelize, Loadouts, Soldiers } = require('../models');
 const { newLoadoutValidation, updateLoadoutValidation, } = require("../joi-validation.js");
 const express = require('express');
 
@@ -9,40 +9,96 @@ const route = express.Router();
 route.use(express.json());
 route.use(express.urlencoded({ extended: true }));
 
+function authToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+  
+    if (token == null) return res.status(401).json({ msg: err });
+  
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    
+        if (err) return res.status(403).json({ msg: err });
+    
+        req.user = user;
+    
+        next();
+    });
+}
+
+route.use(authToken);
+
 
 route.get('/loadouts/', (req, res) => {
 
-    Loadouts.findAll()
-        .then( rows => res.json(rows) )
-        .catch( err => res.status(500).json(err) );
+    Soldiers.findOne({ where: { id: req.user.userID }})
+        .then( usr => {
+            Loadouts.findAll()
+                .then( rows => res.json(rows) )
+                .catch( err => res.status(500).json(err) );
+        })
+        .catch( err => res.status(500).json(err));
+
+    // Loadouts.findAll()
+    //     .then( rows => res.json(rows) )
+    //     .catch( err => res.status(500).json(err) );
     
 });
 
 route.get('/loadouts/:id', (req, res) => {
 
-    Loadouts.findOne({ where: { id: req.params.id } })
-        .then( rows => res.json(rows) )
-        .catch( err => res.status(500).json(err) );
+    Soldiers.findOne({ where: { id: req.user.userID }})
+        .then( usr => {
+            Loadouts.findOne({ where: { id: req.params.id } })
+                .then( rows => res.json(rows) )
+                .catch( err => res.status(500).json(err) );
+        })
+        .catch( err => res.status(500).json(err));
+
+    // Loadouts.findOne({ where: { id: req.params.id } })
+    //     .then( rows => res.json(rows) )
+    //     .catch( err => res.status(500).json(err) );
 
 });
 
 route.post('/loadouts/', (req, res) => {
 
-    const validEntry = newLoadoutValidation.validate(req.body);
+    Soldiers.findOne({ where: { id: req.user.userID }})
+        .then( usr => {
+            if(usr.role == "HQ" || usr.role == "Sergeant"){
+                const validEntry = newLoadoutValidation.validate(req.body);
   
-    if(validEntry.error){
-        res.status(422).json({ msg: validEntry.error.message })
-    }else{
-    
-    Loadouts.create({ type: req.body.type,
-                     rangedWeapon: req.body.rangedWeapon, 
-                     meleeWeapon: req.body.meleeWeapon, 
-                     armourType: req.body.armourType, 
-                     hasGrenades: req.body.hasGrenades })
-        .then( rows => res.json(rows) )
-        .catch( err => res.status(500).json(err) );
+                if(validEntry.error){
+                    res.status(422).json({ msg: validEntry.error.message })
+                }else{
+                
+                Loadouts.create({ type: req.body.type,
+                                rangedWeapon: req.body.rangedWeapon, 
+                                meleeWeapon: req.body.meleeWeapon, 
+                                armourType: req.body.armourType, 
+                                hasGrenades: req.body.hasGrenades })
+                    .then( rows => res.json(rows) )
+                    .catch( err => res.status(500).json(err) );
+                }
+            }else {
+                res.status(403).json({ msg: "ERROR: You have invalid privileges to preform this action"})
+            }
+        })
+        .catch( err => res.status(500).json(err));
 
-}});
+    // const validEntry = newLoadoutValidation.validate(req.body);
+  
+    // if(validEntry.error){
+    //     res.status(422).json({ msg: validEntry.error.message })
+    // }else{
+    
+    // Loadouts.create({ type: req.body.type,
+    //                  rangedWeapon: req.body.rangedWeapon, 
+    //                  meleeWeapon: req.body.meleeWeapon, 
+    //                  armourType: req.body.armourType, 
+    //                  hasGrenades: req.body.hasGrenades })
+    //     .then( rows => res.json(rows) )
+    //     .catch( err => res.status(500).json(err) );}
+});
 
 route.put('/loadouts/:id', (req, res) => {
 
