@@ -1,6 +1,13 @@
 function init() {
 
-    fetch('http://localhost:8080/admin/missions')
+    const cookies = document.cookie.split('=');
+    const token = cookies[cookies.length - 1];
+
+    fetch('http://localhost:8080/admin/missions', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
         .then( res => res.json() )
         .then( data => {
             const lst = document.getElementById('missionTable');
@@ -30,7 +37,10 @@ function init() {
 
         fetch('http://localhost:8080/admin/missions', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+             },
             body: JSON.stringify(data)
         })
             .then( res => res.json() )

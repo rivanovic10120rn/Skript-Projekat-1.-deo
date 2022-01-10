@@ -1,6 +1,13 @@
 function init() {
 
-    fetch('http://localhost:8080/admin/missions')
+    const cookies = document.cookie.split('=');
+    const token = cookies[cookies.length - 1];
+
+    fetch('http://localhost:8080/admin/missions', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
         .then( res => res.json() )
         .then( data => {
             const lst = document.getElementById('missionTable');
@@ -21,7 +28,11 @@ function init() {
         document.getElementById('missionTable').innerHTML='';
         document.getElementById('id').value ='';
 
-        fetch('http://localhost:8080/admin/missions/' + id,)
+        fetch('http://localhost:8080/admin/missions/' + id, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then( res => res.json() )
             .then( el => {
                 const lst = document.getElementById('missionTable');
@@ -41,7 +52,11 @@ function init() {
         document.getElementById('missionTable').innerHTML='';
         document.getElementById('SquadID').value ='';
 
-        fetch('http://localhost:8080/admin/missions/squad/' + promise,)
+        fetch('http://localhost:8080/admin/missions/squad/' + promise, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then( res => res.json() )
             .then( data => {
                 const lst = document.getElementById('missionTable');

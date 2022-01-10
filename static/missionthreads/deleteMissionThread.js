@@ -1,6 +1,13 @@
 function init() {
 
-    fetch('http://localhost:8080/admin/missionthreads')
+    const cookies = document.cookie.split('=');
+    const token = cookies[cookies.length - 1];
+
+    fetch('http://localhost:8080/admin/missionthreads', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
         .then( res => res.json() )
         .then( data => {
             const lst = document.getElementById('missionThreadTable');
@@ -23,7 +30,10 @@ function init() {
 
         fetch('http://localhost:8080/admin/missionthreads/' +id, {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
         })
             .then( res => res.json() )
             .then( el => {

@@ -1,6 +1,13 @@
 function init() {
 
-    fetch('http://localhost:8080/admin/soldiers')
+    const cookies = document.cookie.split('=');
+    const token = cookies[cookies.length - 1];
+
+    fetch('http://localhost:8080/admin/soldiers', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
         .then( res => res.json() )
         .then( data => {
             const lst = document.getElementById('soldierTable');
@@ -40,7 +47,10 @@ function init() {
 
         fetch('http://localhost:8080/admin/soldiers/' +id, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify(data)
         })
             .then( res => res.json() )

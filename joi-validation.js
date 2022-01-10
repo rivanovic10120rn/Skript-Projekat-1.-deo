@@ -14,7 +14,7 @@ const updateSquadValidation = Joi.object({
 
 const newSoldierValidation = Joi.object({
     name: Joi.string().trim().min(1).required(),
-    tag: Joi.string().pattern(/^[a-zA-Z]\d-[a-zA-Z][a-zA-Z]\d\d-6$/).required(),
+    tag: Joi.string().pattern(/^[a-zA-Z]\d?-[a-zA-Z][a-zA-Z]\d\d-6$/).required(),
     role: Joi.string().valid('HQ','Sergeant','Special Gunner','Heavy Gunner','Trooper').required(),
     SquadID: Joi.number().integer().required(),
     LoadoutID: Joi.number().integer().required(),
@@ -24,7 +24,7 @@ const newSoldierValidation = Joi.object({
 
 const updateSoldierValidation = Joi.object({
     name: Joi.string().trim().min(1),
-    tag: Joi.string().pattern(/^[a-zA-Z]\d-[a-zA-Z][a-zA-Z]\d\d-6$/),
+    tag: Joi.string().pattern(/^[a-zA-Z]\d?-[a-zA-Z][a-zA-Z]\d\d-6$/),
     role: Joi.string().valid('HQ','Sergeant','Special Gunner','Heavy Gunner','Trooper'),
     SquadID: Joi.number().integer(),
     LoadoutID: Joi.number().integer(),
@@ -77,7 +77,7 @@ const updateMissionThreadMsgValidation = Joi.object({
 });
 
 const loginSoldierValidation = Joi.object({
-    tag: Joi.string().pattern(/^[a-zA-Z]\d-[a-zA-Z][a-zA-Z]\d\d-6$/).required(),
+    tag: Joi.string().pattern(/^[a-zA-Z]\d?-[a-zA-Z][a-zA-Z]\d\d-6$/).required(),
     password: Joi.string().trim().alphanum().min(3).max(20).required(),
 });
 

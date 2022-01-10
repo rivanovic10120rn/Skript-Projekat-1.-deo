@@ -1,6 +1,13 @@
 function init() {
 
-    fetch('http://localhost:8080/admin/missionthreads')
+    const cookies = document.cookie.split('=');
+    const token = cookies[cookies.length - 1];
+
+    fetch('http://localhost:8080/admin/missionthreads', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
         .then( res => res.json() )
         .then( data => {
             const lst = document.getElementById('missionThreadTable');
@@ -21,7 +28,11 @@ function init() {
         document.getElementById('missionThreadTable').innerHTML='';
         document.getElementById('id').value ='';
 
-        fetch('http://localhost:8080/admin/missionthreads/' + id,)
+        fetch('http://localhost:8080/admin/missionthreads/' + id, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then( res => res.json() )
             .then( el => {
                 const lst = document.getElementById('missionThreadTable');
@@ -41,7 +52,11 @@ function init() {
         document.getElementById('missionThreadTable').innerHTML='';
         document.getElementById('MissionID').value ='';
 
-        fetch('http://localhost:8080/admin/missionthreads/mission/' + url,)
+        fetch('http://localhost:8080/admin/missionthreads/mission/' + url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then( res => res.json() )
             .then( data => {
                 const lst = document.getElementById('missionThreadTable');
@@ -62,7 +77,11 @@ function init() {
         document.getElementById('missionThreadTable').innerHTML='';
         document.getElementById('SoldierID').value ='';
 
-        fetch('http://localhost:8080/admin/missionthreads/soldier/' + SoldierID,)
+        fetch('http://localhost:8080/admin/missionthreads/soldier/' + SoldierID, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then( res => res.json() )
             .then( data => {
                 const lst = document.getElementById('missionThreadTable');

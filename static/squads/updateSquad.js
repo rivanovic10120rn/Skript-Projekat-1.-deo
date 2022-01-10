@@ -1,17 +1,13 @@
 function init() {
     
-    // fetch('http://localhost:8080/admin/squads/')
-    //     .then( res => res.json() )
-    //     .then( data => {
-    //         const lst = document.getElementById('squadList');
+    const cookies = document.cookie.split('=');
+    const token = cookies[cookies.length - 1];
 
-    //         data.forEach( el => {
-    //             lst.innerHTML += `<li>ID: ${el.id}</li> <ul><li>Name: ${el.name}</li> <li>Type: ${el.type}</li> <li>Status: ${el.status}</li></ul>`;
-    //         });
-    //     });
-
-
-    fetch('http://localhost:8080/admin/squads')
+    fetch('http://localhost:8080/admin/squads', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
         .then( res => res.json() )
         .then( data => {
             const lst = document.getElementById('squadTable');
@@ -43,7 +39,10 @@ function init() {
 
         fetch('http://localhost:8080/admin/squads/' + id, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify(data)
         })
             .then( res => res.json() )

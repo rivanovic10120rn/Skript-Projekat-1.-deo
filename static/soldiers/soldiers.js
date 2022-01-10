@@ -1,5 +1,8 @@
 function init() {
 
+    const cookies = document.cookie.split('=');
+    const token = cookies[cookies.length - 1];
+
     fetch('http://localhost:8080/admin/soldiers')
         .then( res => res.json() )
         .then( data => {
@@ -21,7 +24,11 @@ function init() {
         document.getElementById('soldierTable').innerHTML='';
         document.getElementById('id').value ='';
 
-        fetch('http://localhost:8080/admin/soldiers/' + id,)
+        fetch('http://localhost:8080/admin/soldiers/' + id, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then( res => res.json() )
             .then( el => {
                 const lst = document.getElementById('soldierTable');
@@ -41,7 +48,11 @@ function init() {
         document.getElementById('soldierTable').innerHTML='';
         document.getElementById('SquadID').value ='';
 
-        fetch('http://localhost:8080/admin/soldiers/squad/' + url,)
+        fetch('http://localhost:8080/admin/soldiers/squad/' + url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then( res => res.json() )
             .then( data => {
                 const lst = document.getElementById('soldierTable');
@@ -62,7 +73,11 @@ function init() {
         document.getElementById('soldierTable').innerHTML='';
         document.getElementById('LoadoutID').value ='';
 
-        fetch('http://localhost:8080/admin/soldiers/loadout/' + LoadoutID,)
+        fetch('http://localhost:8080/admin/soldiers/loadout/' + LoadoutID, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then( res => res.json() )
             .then( data => {
                 const lst = document.getElementById('soldierTable');
