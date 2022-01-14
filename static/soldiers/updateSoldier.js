@@ -58,7 +58,11 @@ function init() {
                 if(el.msg){
                     alert(el.msg)
                 }else{
-                    fetch('http://localhost:8080/admin/soldiers')
+                    fetch('http://localhost:8080/admin/soldiers', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
                     .then( res => res.json() )
                     .then( data => {
                         const lst = document.getElementById('soldierTable');

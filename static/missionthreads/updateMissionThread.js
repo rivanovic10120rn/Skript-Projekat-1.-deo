@@ -52,7 +52,11 @@ function init() {
                 if(el.msg){
                     alert(el.msg)
                 }else{
-                    fetch('http://localhost:8080/admin/missionthreads')
+                    fetch('http://localhost:8080/admin/missionthreads', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
                     .then( res => res.json() )
                     .then( data => {
                         const lst = document.getElementById('missionThreadTable');

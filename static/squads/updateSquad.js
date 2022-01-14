@@ -50,7 +50,11 @@ function init() {
                 if(el.msg){
                     alert(el.msg)
                 }else{
-                    fetch('http://localhost:8080/admin/squads')
+                    fetch('http://localhost:8080/admin/squads', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
                     .then( res => res.json() )
                     .then( data => {
                         const lst = document.getElementById('squadTable');

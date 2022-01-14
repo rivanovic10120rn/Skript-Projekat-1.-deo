@@ -42,7 +42,11 @@ function init() {
                 if(el.msg){
                     alert(el.msg)
                 }else{
-                fetch('http://localhost:8080/admin/loadouts')
+                fetch('http://localhost:8080/admin/loadouts', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
                     .then( res => res.json() )
                     .then( data => {
                         const lst = document.getElementById('loadoutTable');
