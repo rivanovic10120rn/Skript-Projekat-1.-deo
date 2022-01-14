@@ -3,7 +3,11 @@ function init() {
     const cookies = document.cookie.split('=');
     const token = cookies[cookies.length - 1];
 
-    fetch('http://localhost:8080/admin/soldiers')
+    fetch('http://localhost:8080/admin/soldiers', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }
         .then( res => res.json() )
         .then( data => {
             const lst = document.getElementById('soldierTable');
@@ -14,7 +18,7 @@ function init() {
             data.forEach( el => {
                 lst.innerHTML += `<tr><td>${el.id}</td> <td>${el.name}</td> <td>${el.tag}</td> <td>${el.role}</td> <td>${el.SquadID}</td> <td>${el.LoadoutID}</td> <td>${el.password}</td> <td>${el.status}</td></tr>`;
         });
-    }});
+    }}));
 
     document.getElementById('soldierButton').addEventListener('click', e => {
         e.preventDefault();
