@@ -2,11 +2,11 @@ const express = require("express");
 
 const { sequelize } = require('./models');
 
-const squadRt = require('./routes/squadsRoute');
-const soldierRt = require('./routes/soldiersRoute');
-const loadoutRt = require('./routes/loadoutsRoute');
-const missionRt = require('./routes/missionsRoute');
-const missionthreadRt = require('./routes/missionthreadsRoute');
+// const squadRt = require('./routes/squadsRoute');
+// const soldierRt = require('./routes/soldiersRoute');
+// const loadoutRt = require('./routes/loadoutsRoute');
+// const missionRt = require('./routes/missionsRoute');
+// const missionthreadRt = require('./routes/missionthreadsRoute');
 
 const path = require("path");
 
@@ -18,11 +18,11 @@ require('dotenv').config();
 
 const app = express();
 
-app.use('/admin', squadRt);
-app.use('/admin', soldierRt);
-app.use('/admin', loadoutRt);
-app.use('/admin', missionRt);
-app.use('/admin', missionthreadRt);
+// app.use('/admin', squadRt);
+// app.use('/admin', soldierRt);
+// app.use('/admin', loadoutRt);
+// app.use('/admin', missionRt);
+// app.use('/admin', missionthreadRt);
 
 function getCookies(req) {
     if (req.headers.cookie == null) return {};
@@ -68,7 +68,7 @@ app.get('/', authToken, (req, res) => {
 
 app.use(express.static(path.join(__dirname,'static')));
 
-app.listen({ port: 8080 }, async () => {
+app.listen({ port: 8000 }, async () => {
     await sequelize.authenticate();
     console.log('Connection established');
 });
