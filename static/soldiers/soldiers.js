@@ -7,7 +7,7 @@ function init() {
         headers: {
             'Authorization': `Bearer ${token}`
         }
-    }
+    })
         .then( res => res.json() )
         .then( data => {
             const lst = document.getElementById('soldierTable');
@@ -18,7 +18,7 @@ function init() {
             data.forEach( el => {
                 lst.innerHTML += `<tr><td>${el.id}</td> <td>${el.name}</td> <td>${el.tag}</td> <td>${el.role}</td> <td>${el.SquadID}</td> <td>${el.LoadoutID}</td> <td>${el.password}</td> <td>${el.status}</td></tr>`;
         });
-    }}));
+    }});
 
     document.getElementById('soldierButton').addEventListener('click', e => {
         e.preventDefault();

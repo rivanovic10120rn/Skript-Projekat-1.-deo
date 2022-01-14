@@ -30,5 +30,5 @@ app.use('/admin', missionthreadRt);
 
 app.listen({ port: 8080 }, async () => {
     await sequelize.authenticate();
-    console.log('Connection Established - Rest API');
+    console.log('Connection established - Rest API');
 });
