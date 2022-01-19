@@ -21,6 +21,15 @@ function init() {
         document.getElementById('password').value='';
         document.getElementById('status').value='';
 
+        fetch('http://localhost:8080/admin/soldiers', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        });
+
         fetch('http://127.0.0.1:9000/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
